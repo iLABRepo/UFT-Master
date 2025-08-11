@@ -1,0 +1,394 @@
+﻿'*******************************************************************************************
+'Function Name 				: Click Object
+'Automated by 			: Bongs Lushaba
+'Reviewd by 			: 
+'Date					: 09/01/2018
+'******************************************************************************************
+
+Function ClickObject(strPath, strProperty, strPage)
+	strType = ReadXML(strPath,strProperty)
+	strPage.WebButton("name:="&strType(1)).Click
+End Function
+
+'*******************************************************************************************
+'Function Name 				: EnterText
+'Automated by 			: Bongs Lushaba
+'Reviewd by 			: 
+'Date					: 09/01/2018
+'******************************************************************************************
+Function EnterText(strPath, strProperty, strPage, strData)
+	strType = ReadXML(strPath,strProperty)
+	strPage.WebEdit("name:="&strType(1)).Set strData
+End Function
+
+'*******************************************************************************************
+'Function Name 			: ClickLinkObject
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+
+'Function to click on a LINK object.With the current code you can have up to two descriptive properties
+'specified in the XML for the object and object will be clicked
+'******************************************************************************************
+
+Function ClickLinkObject(strPath, strProperty, strPage)
+	strType = ReadXML(strPath,strProperty)
+	arraytype = split(strType(0),",")
+	arraytype2 = split(strType(1),",")
+	If ubound(arraytype) > 0 Then
+		strPage.Link(arraytype(0)&":="&arraytype2(0),arraytype(1)&":="&arraytype2(1)).Click
+	Else
+	strPage.Link(strType(0)&":="&strType(1)).Click
+	End If
+	
+End Function
+
+'*******************************************************************************************
+'Function Name 			: ClickLinkHeading
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+
+'Function to click on a LINK object that is a heading.
+'******************************************************************************************
+Function ClickLinkHeading(strPath, strProperty, strPage)
+	strType = ReadXML(strPath,strProperty)
+	strPage.Link(strType(1)).Click
+End Function
+
+'*******************************************************************************************
+'Function Name 			: ClickButtonObject
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+
+'Function to click on a BUTTON object.
+'******************************************************************************************
+Function ClickButtonObject(strPath, strProperty, strPage)
+	strType = ReadXML(strPath,strProperty)
+	strPage.WebButton(strType(0)&":="&strType(1)).Click
+End Function
+
+'*******************************************************************************************
+'Function Name 			: CheckIfButtonExist
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+
+'Function to returns true if BUTTON object exists.
+'******************************************************************************************
+Function CheckIfButtonExist(strPath, strProperty, strPage)
+	strType = ReadXML(strPath,strProperty)
+    If strPage.WebButton(strType(0)&":="&strType(1)).Exist Then
+    CheckIfButtonExist = True
+    Else
+    CheckIfButtonExist = False
+    End If
+End Function
+
+'*******************************************************************************************
+'Function Name 			: CheckIfLinkExist
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+
+'Function to returns true if LINK object exists.
+'******************************************************************************************
+Function CheckIfLinkExist(strPath, strProperty, strPage)
+	strType = ReadXML(strPath,strProperty)
+    If strPage.Link(strType(0)&":="&strType(1)).Exist Then
+    CheckIfLinkExist = True
+    Else
+    CheckIfLinkExist = False
+    End If
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: ClickWebElementObject
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+
+'Function to click on a WEBELEMENT object.
+'******************************************************************************************
+Function ClickWebElementObject(strPath, strProperty, strPage)
+	strType = ReadXML(strPath,strProperty)
+	strPage.WebElement(strType(0)&":="&strType(1)).Click
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: ClickWebElementObject
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+
+'Function to click on WEBELEMENT object. This could be used specifically to select an account to transfer money to
+'for the Transfer operation. The type of card is passed from the calling function and is clicked on.
+'The reason for this implementation is because as you add or remove pockets, the position of the cards may vary.
+'******************************************************************************************
+Function ClickWebElementObjectForTransfer(strPath, strProperty, strTypeOfCard ,strPage)
+	strType = ReadXML(strPath,strProperty)
+		arraytype = split(strType(0),",")
+	arraytype2 = split(strType(1),",")
+	If ubound(arraytype) > 0 Then
+		strPage.WebElement(arraytype(0)&":="&arraytype2(0),arraytype(1)&":="&arraytype2(1),"innertext:="&strTypeOfCard).Click
+	End If 
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: ClickWebElementObjectForIDSelection
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 11/05/2018
+'Function to click on an ID number that is passed from calling function.
+'******************************************************************************************
+Function ClickWebElementObjectForIDSelection(strPage,idNumber)
+	strPage.WebElement(idNumber).Click
+End Function
+
+'*******************************************************************************************
+'Function Name 			: EnterText
+'Automated by 			: Bongs Lushaba
+'Reviewd by 			: 
+'Date					: 09/01/2018
+'Funcation to enter text into an object
+'******************************************************************************************
+Function EnterText(strPath, strProperty, strPage, strData)
+	strType = ReadXML(strPath,strProperty)
+	 strPage.WebEdit(strType(0)&":="&strType(1)).Set strData
+End Function
+
+'*******************************************************************************************
+'Function Name 			: EnterAutoSuggestedText
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+'Function to enter text into a field that requires you to select a value from a dropdown after the entering
+'a partial name. After entering the text, there are options that exist below that need to be selected so
+'other fields can be auto populated from your selection. This function has problems running in debug mode.
+'******************************************************************************************
+Function EnterAutoSuggestedText(strPath, strProperty, strPage, strData)
+	strType = ReadXML(strPath,strProperty)
+	strPage.WebEdit(strType(0)&":="&strType(1)).Click
+	SendSearchData(strData)
+	wait(5)
+	PressDownArrow()
+	wait(2)
+	PressEnter()
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: SendSearchData
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+'Function to enter text into the field that will result in options appearing in the drop down menu
+' for selection.Called from EnterAutoSuggestedText. This function has problems running in debug mode.
+'******************************************************************************************
+Function SendSearchData(strData)
+    set mySendKeys = CreateObject("WScript.shell")
+    mySendKeys.SendKeys(strData)
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: PressDownArrow
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+'Function to press the down arrow to select an option from the drop down menu
+'after entering the search data.Called from EnterAutoSuggestedText.This function has problems running in debug mode.
+'******************************************************************************************
+Function PressDownArrow()
+	set mySendKeys = CreateObject("WScript.shell")
+    mySendKeys.SendKeys("{DOWN}")
+End Function
+
+'*******************************************************************************************
+'Function Name 			: PressEnter
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+'Function to press the ENTER key to select an option from the drop down menu
+'after entering the search data and down arrow.Called from EnterAutoSuggestedText.This function has problems running in debug mode.
+'******************************************************************************************
+Function PressEnter()
+    set mySendKeys = CreateObject("WScript.shell")
+    mySendKeys.SendKeys("{ENTER}")
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: SelectWeblistItem
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 08/05/2018
+'Function to select a value from a drop down list object.
+'******************************************************************************************
+Function SelectWeblistItem(strPath, strProperty, strPage, strData)
+	strType = ReadXML(strPath,strProperty)
+	strPage.WebList(strType(0)&":="&strType(1)).Select strData
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: SelectRadioGroupItem
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 08/05/2018
+'Function to select a radio button object. Might be preferable to click on the webelement(label)
+'to make this selection.
+'******************************************************************************************
+Function SelectRadioGroupItem(strPath, strProperty, strPage, strData)
+	strType = ReadXML(strPath,strProperty)
+	strPage.WebRadioGroup(strType(0)&":="&strType(1)).Select strData
+
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: TickCheckBox
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 08/05/2018
+'Function to ticks a check box object. Can set to ON or OFF
+'******************************************************************************************
+Function TickCheckBox(strPath, strProperty, strPage, strData)
+	strType = ReadXML(strPath,strProperty)
+	 strPage.WebCheckBox(strType(0)&":="&strType(1)).Set strData
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: TickCheckBox
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 08/05/2018
+'Function to add a file in the acase of upload functionality. Used to upload files from your local
+'machine to your application.
+'******************************************************************************************
+Function AddWebFile(strPath, strProperty, strPage, strData)
+	strType = ReadXML(strPath,strProperty)
+	strPage.WebFile(strType(0)&":="&strType(1)).Set strData
+	
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: ReportPassFailButton
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 08/05/2018
+'Function called to write to report. Searches for a BUTTON then reports if the previous step passed or
+'failed.
+'******************************************************************************************
+Function ReportPassFailButton(strPath,strProperty,strPage,strPass,strFail,strStep,strProcess)
+		strType = ReadXML(strPath,strProperty)
+	If strPage.WebButton(strType(0)&":="&strType(1)).Exist Then
+	Reporter.ReportEvent micPass,"Validation Passed",strPass
+	AppendToTextFile sTestReport,""&strProcess&";"&strStep&";Complete;"&strPass
+	Else
+	 Reporter.ReportEvent micFail,"Validation Failed",strFail
+	 AppendToTextFile sTestReport,""&strProcess&";"&strStep&";Complete;"&strFail
+	 'AppendToTextFile sTestReport,"scenario: "& DataTable.GetCurrentRow&";Test Steps;Status;Results"
+	End If
+End Function
+
+'*******************************************************************************************
+'Function Name 			: ReportPassFailLink
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 08/05/2018
+'Function called to write to report. Searches for a LINK then reports if the previous step passed or
+'failed.
+'******************************************************************************************
+Function ReportPassFailLink(strPath,strProperty,strPage,strPass,strFail,strStep,strProcess)
+	strType = ReadXML(strPath,strProperty)
+	If strPage.Link(strType(0)&":="&strType(1)).Exist Then
+	Reporter.ReportEvent micPass,"Validation Passed",strPass
+	'AppendToTextFile sTestReport, strProperty,strStep,"Complete",strPass
+	AppendToTextFile sTestReport,""&strProcess&";"&strStep&";Complete;"&strPass
+	Else
+	 Reporter.ReportEvent micFail,"Validation Failed",strFail
+	 AppendToTextFile sTestReport,""&strProcess&";"&strStep&";Incomplete;"&strFail
+	End If
+End Function
+
+
+'*******************************************************************************************
+'Function Name 			: ClickWebElementObject
+'Automated by 			: Maegan Kullenda
+'Reviewd by 			: 
+'Date					: 18/05/2018
+
+'Function to click on WEBELEMENT object. This could be used specifically to select an account to transfer money to
+'for the Transfer operation. The type of card is passed from the calling function and is clicked on.
+'The reason for this implementation is because as you add or remove pockets, the position of the cards may vary.
+'******************************************************************************************
+Function ClickWebElementObjectForDynamicSelect(strPath, strProperty, varAccount ,strPage)
+	strType = ReadXML(strPath,strProperty)
+		arraytype = split(strType(0),",")
+	arraytype2 = split(strType(1),",")
+	If ubound(arraytype) > 0 Then
+		strPage.WebElement(arraytype(0)&":="&arraytype2(0),arraytype(1)&":="&arraytype2(1),"innertext:="&varAccount).Click
+	Else  
+		strPage.WebElement(arraytype(0)&":="&arraytype2(0),"innertext:="&varAccount).Click
+	End If 
+End Function
+
+Function GetInnerTextOfVariableWebElement(strPath, strProperty, strPage,Iterator)
+	strType = ReadXML(strPath,strProperty)
+	arraytype = split(strType(0),",")
+	arraytype2 = split(strType(1),",")
+	If ubound(arraytype2) > 0 Then
+		GetInnerTextOfVariableWebElement = strPage.WebElement(arraytype(0)&":="&arraytype2(0)&Iterator&arraytype2(1)).GetROProperty("innertext")
+	End If	
+End Function
+
+Function ClickOnVariableImage(strPath, strProperty, strPage,Iterator)
+	strType = ReadXML(strPath,strProperty)
+	arraytype = split(strType(0),",")
+	arraytype2 = split(strType(1),",")
+	If ubound(arraytype2) > 0 Then
+		strPage.Image(arraytype(0)&":="&arraytype2(0)&Iterator&arraytype2(1)).Click
+	End If	
+End Function
+
+'*******************************************************************************************
+'Function Name 			: CheckIfWebElementExist
+'Automated by 			: Rishen Moodley
+'Reviewd by 			: 
+'Date					: 12/07/2018
+
+'Function to returns true if WebElement object exists.
+'******************************************************************************************
+Function CheckIfWebElementExist(strPath, strProperty, strPage, Iterator)
+	strType = ReadXML(strPath,strProperty)
+	arraytype = split(strType(0),",")
+	arraytype2 = split(strType(1),",")
+	
+	If ubound(arraytype2) > 0 Then
+		If strPage.WebElement(arraytype(0)&":="&arraytype2(0)&Iterator&arraytype2(1)).Exist(1) Then
+			CheckIfWebElementExist = True
+		Else
+			CheckIfWebElementExist= False
+		End If
+	Else
+		If strPage.WebElement(arraytype&":="&arraytype2).Exist(1) Then
+			CheckIfWebElementExist = True
+		Else
+			CheckIfWebElementExist= False
+		End If
+	End If
+'	strType = ReadXML(strPath,strProperty)
+'	arraytype = split(strType(0),",")
+'	arraytype2 = split(strType(1),",")
+'	If ubound(arraytype2) > 0 Then
+'		GetInnerTextOfVariableWebElement = strPage.WebElement(arraytype(0)&":="&arraytype2(0)&Iterator&arraytype2(1)).GetROProperty("innertext")
+'	End If
+End Function
+

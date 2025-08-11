@@ -1,0 +1,10 @@
+<Framework>
+<Login>
+<ElementType>WebEdit</ElementType>
+<ElementName>q</ElementName>
+</Login>
+<Search>
+<ElementType>WebButton</ElementType>
+<ElementName>Google Search</ElementName>
+</Search>
+</Framework>
