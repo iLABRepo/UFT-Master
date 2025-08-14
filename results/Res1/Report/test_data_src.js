@@ -1,0 +1,1 @@
+﻿var __testDataSource={items:[{dataFilePath:'Default.xlsx',dataFileFormat:'excel',dataFileFolder:'C:\\Users\\Thoriso Molebatsi\\OneDrive - iLAB, LLC\\Documents\\Functional Testing\\UFT-Master\\results\\Res1',namePairs:[]}]};

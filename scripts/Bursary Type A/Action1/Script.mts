@@ -14,8 +14,9 @@ DataTable.SetCurrentRow 1
 Login DataTable.Value("Username"), DataTable.Value("Password") 
 
 ClickStartHere
-ClickNext
+
 ClickBursaryTypeLink DataTable.Value("BursaryType")
+ClickNext
 
 AgreeToTermsAndConditions
 
