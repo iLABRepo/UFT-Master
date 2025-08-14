@@ -1,0 +1,297 @@
+﻿'*******************************************************************************************
+'Transaction Name 		: CRMDomainStringGenerator
+'Automated by 				: Khangwelo Ravhutsi
+'Reviewd by 				 : 
+'Date								: 26/05/2014
+'******************************************************************************************
+Function GenerateRandomString(StrLen)
+Dim myStr
+Const MainStr= "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+For i = 1 to StrLen
+  myStr=myStr & Mid(MainStr,RandomNumber(1, Len(MainStr)),1)
+Next
+GenerateRandomString = myStr
+End Function
+
+'*******************************************************************************************
+'Transaction Name 		: CRMSeatsNumberGenerator
+'Automated by 				: Khangwelo Ravhutsi
+'Reviewd by 				 : 
+'Date								: 12/05/2014
+'******************************************************************************************
+Function GenerateRandomValue(IntLen)
+Dim myInt
+Const MainInt= "0123456789"
+For i = 1 to IntLen
+  myInt=myInt & Mid(MainInt,RandomNumber(1, Len(MainInt)),1)
+Next
+GenerateRandomValue= myInt
+End Function
+
+'*******************************************************************************************
+'Transaction Name 		: getGenderFromID
+'Automated by 				: Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 
+'******************************************************************************************
+Function getGenderFromID(IDNo)
+   If (len(IDNo) = 13) Then
+	lastseven = right(IDNo,7)
+	Gendernumber = left(lastseven,4)
+		If Gendernumber >5000 Then
+			Gender = "Male"
+            else
+			Gender = "Female"
+		End If
+		getGenderFromID = Gender
+	End If
+
+End Function
+
+'*******************************************************************************************
+'Transaction Name 		:  SendEmailFromOutlook
+'Automated by 				:  Kabelo Chilwane
+'Reviewd by 				 : 
+'Date								: 
+'******************************************************************************************
+Function SendEmailFromOutlook (EmailAddress,Filepath)
+		strEmailTo = EmailAddress
+		'strEmailCC = "k.chilwayne@gmail.com"
+		strSubject = "Automation Execution Report"
+		strFileName = "iTestware Weekly Execution Report."
+		'Create an object of type Outlook
+		Set objOutlook = CreateObject("Outlook.Application")
+		Set myMail = objOutlook.CreateItem(0)
+		
+		'Set the email properties
+		myMail.To = strEmailTo
+		myMail.CC =strEmailCC
+		myMail.Subject = strSubject
+		myMail.Body= "This is automated test execution results. Please contact Automation lead for more information"
+		myMail.Attachments.Add(Filepath) 'Path of the file to be attached
+		
+		'Send the mail
+		myMail.Send
+		Wait(3)
+		
+		'Clear object reference
+		Set myMail = Nothing
+		Set objOutlook = Nothing
+	
+
+End Function
+'*******************************************************************************************
+'Transaction Name 		:  ClearIECache
+'Automated by 				:  Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 
+'******************************************************************************************
+Public Function ClearIECache() 
+   Dim objShell 
+   Set objShell = CreateObject("WScript.Shell")
+    objShell.Run "RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 4351", 1, True 
+	Set objShell = Nothing 
+End Function
+'*******************************************************************************************
+'Transaction Name 		:   ConvertDialingNoToMSISDN
+'Automated by 				:  Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 
+'******************************************************************************************
+Function ConvertDialingNoToMSISDN(DialingNo)
+	MSISDN =  left(DialingNo, 9)
+	strMsisdn = "0" + MSISDN
+	ConvertDialingNoToMSISDN = strMsisdn
+End Function
+
+'*******************************************************************************************
+'Transaction Name 		:   GetUniqueValue
+'Automated by 				:  Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 
+'******************************************************************************************
+
+Function GetUniqueValue
+	times = FormatDateTime(time,3) 
+	mont = FormatDateTime(date,1) 
+	mont = replace(mont," ","_")
+	times = replace(times,":","_")
+	Uniquename = mont & "_" & times
+	GetUniqueValue = Uniquename
+End Function
+
+Function CreateFile(fileName)
+'Create a filesystemObject
+		Set FileHandler = CreateObject("Scripting.FileSystemObject")
+		'Create a non existing file "qtptest.txt "  with overwrite option as True
+		Set ExcelFile = FileHandler.CreateTextFile(fileName,True,False) 
+
+		'Loop Though Array and write the results to CSV file
+		ExcelFile.WriteLine "Test Step Detail,Status,Issue Details"
+		'Close the files
+		ExcelFile.Close
+		'Release the allocated objects
+		Set ExcelFile = Nothing 
+
+End Function
+
+Function CloseBrowsers
+	SystemUtil.CloseProcessByName("iexplore.exe") 
+	SystemUtil.CloseProcessByName("chrome.exe") 
+	SystemUtil.CloseProcessByName("firefox.exe") 
+End Function
+
+
+Function CreateFolder(FolderNamePath)
+'Create a filesystemObject
+		Set FileHandler = CreateObject("Scripting.FileSystemObject")
+		'Create a non existing file "qtptest.txt "  with overwrite option as True
+		If Not FileHandler.FolderExists(folderNamePath) Then
+			filehandler.CreateFolder folderNamePath
+		End If
+		
+		
+End Function
+
+
+Function CreateTestResults(Country,FuncAreaPath)
+	
+	strUniquename = GetUniqueValue()
+	strFolderName = Country &"_"&Environment.Value("ActionName")&"_"& strUniquename
+	strNewfilename = Country &"_"&Environment.Value("ActionName")&"_"& strUniquename & ".csv"
+	CreateFolder FuncAreaPath
+	CreateFolder FuncAreaPath&strFolderName
+	ResultsFolder = FuncAreaPath&strFolderName
+	ResultsPath = FuncAreaPath&strFolderName &"\"&strNewfilename
+	CreateFile(ResultsPath)
+End Function
+
+
+Function VerifyFileExist(Filepath)
+	Set fso = CreateObject("Scripting.FileSystemObject")
+	If (fso.FileExists(Filepath)) Then
+	   VerifyFileExist = True
+	Else
+	   VerifyFileExist = False
+	End If
+End Function
+
+Function CreateNationalID(CountryAbbrev)
+	Select Case CountryAbbrev
+		Case "CZE"
+			CreateNationalID = cstr(DatePart("h", Now)) + cstr(DatePart("n", Now)) + cstr(DatePart("s", Now)) + "/1234"
+		Case "HUN"
+			CreateNationalID = "1" + cstr(DatePart("h", Now)) + cstr(DatePart("n", Now)) + cstr(DatePart("s", Now)) + "1234"
+		Case "IRL"
+			CreateNationalID = cstr(DatePart("q", Now)) + cstr(DatePart("w", Now)) + cstr(DatePart("h", Now)) + cstr(DatePart("n", Now)) + "TA"
+		Case "MEX"
+			CreateNationalID = "HEGG" + cstr(DatePart("q", Now)) + cstr(DatePart("w", Now)) + cstr(DatePart("h", Now)) + cstr(DatePart("n", Now)) + "MVZRRL05"
+		Case Else
+			CreateNationalID = "2" + cstr(DatePart("h", Now)) + cstr(DatePart("n", Now)) + cstr(DatePart("s", Now)) + "1234"
+	End Select
+End Function
+
+Function removeNonAlphanumericCharacters(strSearchString)
+
+	Set objRegEx = CreateObject("VBScript.RegExp")
+
+	objRegEx.Global = True   
+	objRegEx.Pattern = "[^0-9]"
+	'objRegEx.Pattern = "[^A-Za-z]"			replace in an alphanumeric string
+	'objRegEx.Pattern = "[^A-Za-z\n\r]"		replace in an alphanumeric text ignore new line and row
+
+	strSearchString = objRegEx.Replace(strSearchString, "")
+	removeNonAlphanumericCharacters = strSearchString
+End Function
+
+
+
+
+'*******************************************************************************************
+'Transaction Name 		: GetDate
+'Automated by 				: Bongs Lushaba
+'Reviewd by 				 : 
+'Date								: 15/02/2018
+'******************************************************************************************
+Function GetDate (sFormat, sDif)
+
+Select Case  uCase(sFormat)
+	Case "YYYYMMDD"
+		If  sDif = "/" Then
+			GetDate = Year(Date)&"/"&getMonth()&"/"&getDay()
+		ElseIf sDif = "-" Then
+			GetDate = Year(Date)&"-"&getMonth()&"-"&getDay()
+		Else
+			GetDate = Year(Date)&getMonth&getDay()
+		End If
+	Case "DDMMYYYY"
+		If  sDif = "/" Then
+			GetDate = getDay()&"/"&getMonth()&"/"&Year(Date)
+		ElseIf sDif = "-" Then
+			GetDate = Year(Date)&"-"&getMonth()&"-"&getDay()
+		Else
+			GetDate = Year(Date)&getMonth&getDay()
+		End If
+End Select
+
+End Function
+
+Function getMonth()
+	If len(Month(Date)) = 1 Then
+				getMonth = 0&Month(Date)
+	Else
+		getMonth = Month(Date)
+			End If
+End Function
+
+Function getDay()
+	If len(Day(Date)) = 1 Then
+				getDay = 0&Day(Date)
+	Else
+		getDay = Day(Date)
+			End If
+End Function
+
+Function getTimeStamp()
+strSafeDate = DatePart("yyyy",Date) & Right("0" & DatePart("m",Date), 2) & Right("0" & DatePart("d",Date), 2)
+
+ 
+
+strSafeTime = Right("0" & Hour(Now), 2) & Right("0" & Minute(Now), 2) & Right("0" & Second(Now), 2)
+
+getTimeStamp =  strSafeDate &strSafeTime	
+End Function
+
+Function ReadXML0(strFileName, strElement)
+Dim strType(1)
+Dim Root
+Set xmlDoc = CreateObject("Microsoft.XMLDOM")
+
+xmlDoc.Async = "False"
+xmlDoc.Load(strFileName)
+Set Root = xmlDoc.documentElement   
+Set NodeList = Root.getElementsByTagName(strElement) 
+
+strType(0) = nodelist.context.firstchild.text
+
+strType(1) = nodelist.context.lastchild.text	
+ReadXML0 = strType
+End Function
+
+Function ReadXML(strFileName, strElement)
+Dim strType(1)	
+
+Set xmlDoc = CreateObject( "Microsoft.XMLDOM" )
+xmlDoc.Async = "False"
+xmlDoc.Load(strFileName)
+
+strQuery = strElement
+Set colNodes = xmlDoc.selectNodes( strQuery )
+For Each objNode in colNodes
+
+	strType(0) = objNode.firstchild.text
+
+strType(1) = objNode.lastchild.text
+ReadXML = strType
+Next
+End Function

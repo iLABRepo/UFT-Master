@@ -1,0 +1,14 @@
+﻿'*****************************************************
+'Environments
+Dim TestReleaseEnvironment, SuccessFactorsEnvironment
+TestReleaseEnvironment = ""
+
+Public sTestReport
+Public sResults
+'Create a test Report
+sTestReport = "C:\automation\results\automationresults"&Year(Date)&Month(Date)&Day(Date)&"\"&getTimeStamp()&".csv"
+sResults = "C:\automation\results\automationresults"&Year(Date)&Month(Date)&Day(Date)&""
+
+'Test Data
+
+strTestData = "C:\automation\data\TestData.xls"

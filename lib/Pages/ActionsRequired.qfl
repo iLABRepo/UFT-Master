@@ -1,0 +1,8 @@
+﻿Dim browserObjAR
+
+Set browserObjAR = Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*")
+
+Sub ClickOnTheFirstSubmission
+	browserObjAR.WebElement("xpath:=(//td/a)[1]").Click
+End Sub
+

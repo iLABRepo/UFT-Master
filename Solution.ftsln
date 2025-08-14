@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 4.1.3.0
+Project("") = "Bursary Type A", "scripts\Bursary Type A\Test.tsp", "78720439-6ABC-459D-9E4D-9232BDC7D9DA"
+	ProjectSection(ProjectMetadata) = HP.UFT.ProjectSystem.Dynamic.ProjectMetadata
+		PathInformation = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\scripts\Bursary Type A\Test.tsp
+		Keyword = QTP
+		OpenAsReadOnly = False
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Debug|Any CPU.Build.0 = Debug|Any CPU
+		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Release|Any CPU.Build.0 = Release|Any CPU
+		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(Function Libraries) = postProject
+		Utility Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Utility Functions.qfl
+		Wits Staff Bursary = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\Wits Staff Bursary.qfl
+		Login = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\Login.qfl
+		Navigation = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\Navigation.qfl
+		Home = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\Home.qfl
+		Data Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Data Functions.qfl
+		Constants = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Constants.qfl
+		Keywords Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Keywords Functions.qfl
+		Generic Form Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\Generic Form Functions.qfl
+		ActionsRequired = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\ActionsRequired.qfl
+	EndGlobalSection
+EndGlobal

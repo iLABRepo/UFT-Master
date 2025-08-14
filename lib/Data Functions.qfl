@@ -1,0 +1,587 @@
+﻿Public ArrayDataTowrite
+
+'*******************************************************************************************
+'Function Name 				: getExcelData
+'Automated by 				: Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 09/05/2014
+'******************************************************************************************
+Function getExcelData(fileName)
+	'fileName = "Q:\Test Data\CRM\Male ID.xls"
+	' create an excel object used to open the spreadsheet
+
+	If VerifyFileExist(fileName) Then
+		Set objExcel = CreateObject("Excel.Application")
+    	' open the relevant spreadsheet 
+    
+		Set workbook = objExcel.Workbooks.Open(fileName)
+	
+		Set objSheet = objExcel.ActiveWorkbook.Worksheets(1) 
+	
+		'get the column number where used by is titled
+		For i=1 to 2000
+			ColumValue = objSheet.Cells(1,i).Value	
+			If lcase(ColumValue) <> "" Then
+				ColumnNo =  i
+				Exit for
+			End If
+		Next
+	
+		Row = 1 'start at row 1
+		Do While objExcel.Cells(Row,ColumnNo).Value <> "" 
+	    	Row = Row + 1
+		Loop
+		Set WshNetwork = CreateObject("WScript.Network")
+		ComputerName = WshNetwork.ComputerName
+		values = objExcel.Rows(Row).Value
+		objExcel.Cells(Row,ColumnNo).Value =ComputerName
+	    getExcelData = values
+		' save the spreadsheet and exit
+		'workbook.Close True
+		objExcel.Quit
+	else
+		reporter.ReportEvent micFail,"Get test data from an excel file", "File Specified Does not exist"
+		ExitAction
+	End If
+End Function
+'*******************************************************************************************
+'Function Name 				: getDataEppix(SqlToExec)
+'Automated by 				: Sastri
+'Reviewd by 				 : 
+'Date								: 09/07/2014
+'******************************************************************************************
+Function getDataEppix(SqlToExec)
+	Dim objConnection, objRecordSet
+	Dim ConnectionString
+	
+	' Create Connection String and Establish Connection
+	Set objConnection = CreateObject("ADODB.Connection")
+	ConnectionString = "DRIVER={IBM INFORMIX ODBC DRIVER};HOST=10.102.217.188;SERVER=csgeppixqa_tcp;SERVICE=5424;PROTOCAL=olsoctcp;DATABASE=eppix;UID=masiab01;PWD=voda1212;"
+	objConnection.Open ConnectionString
+	
+	'Create the SQL query here
+	'SqlToExec = "select * from slcustm where customer like 'I1785%' and analysis_codes1 = 'CURRENT' order by 1 desc"
+    	
+	' Execute Query
+	Set objRecordSet = CreateObject("ADODB.Recordset")
+	Set objRecordSet = objConnection.execute(SqlToExec)
+	
+	' Test for success
+	' Move to First Row
+	objRecordSet.MoveFirst
+	' Extract the Customer ID
+	SqlToExec = objRecordSet.Fields.Item(0)
+	' Display the value
+	 
+	getDataEppix = SqlToExec
+	' Variable Clean up (To avoid Memory leaks)
+	objConnection.Close
+	Set objRecordSet = Nothing
+	Set objConnection = Nothing
+
+End Function
+
+'*******************************************************************************************
+'Function Name 				: ExecuteQuery_Eppix
+'Automated by 				: Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 0508/2014
+'******************************************************************************************
+Public Function ExecuteQuery_Eppix(strUserId, strPassword, strQuery,strDBName)
+    Dim sConnString
+    Dim objConnection, objRecordSet
+	Const strConnectionString = "DRIVER={IBM INFORMIX ODBC DRIVER};HOST=10.102.217.188;SERVER=csgeppixqa_tcp;SERVICE=5424;PROTOCAL=olsoctcp;DATABASE=##DBNAME##;UID=##USERID##;PWD=##PWD##;"
+
+On Error Resume Next
+
+    ' Insert Username and Password into the Connection string
+    sConnString = Replace(strConnectionString, "##USERID##", strUserId)
+    sConnString = Replace(sConnString, "##PWD##", strPassword)
+	sConnString = Replace(sConnString, "##DBNAME##", strDBName)
+             
+    ' Create Connection String and Establish Connection
+    Set objConnection = CreateObject("ADODB.Connection")
+    objConnection.Open sConnString
+	Wait(2)
+    If Err.Number = 0 Then
+		
+    
+        ' Execute Query
+        Set objRecordSet = CreateObject("ADODB.Recordset")
+		Wait(1)
+        Set objRecordSet = objConnection.Execute(strQuery)
+		Wait(1)
+
+        ' Check to see if Query is succesful then return all rows; otherwise return -1
+        If ((objRecordSet.EOF = False) And (objRecordSet.BOF = False)) Then
+            ExecuteQuery_Eppix = objRecordSet.GetRows()
+        Else
+            ExecuteQuery_Eppix = "No records found"
+        End If
+        
+        ' Close the Connection
+        objConnection.Close
+    Else
+        ' No connection to DB
+        ExecuteQuery_Eppix = -1
+    End If
+     
+    ' Variable Clean up (To avoid Memory leaks)
+    Set objRecordSet = Nothing
+    Set objConnection = Nothing
+    Exit Function
+
+End Function
+
+'*******************************************************************************************
+'Function Name 				: GetDataFromTextFile
+'Automated by 				: Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 0508/2014
+'******************************************************************************************
+Function GetDataFromTextFile(filepath)
+	Set objFileToRead = CreateObject("Scripting.FileSystemObject").OpenTextFile(filepath,1)
+	strFileText = objFileToRead.ReadAll()
+	objFileToRead.Close
+	Set objFileToRead = Nothing
+	GetDataFromTextFile = strFileText
+End Function
+'*******************************************************************************************
+'Function Name 				: WritetoExcelfile
+'Automated by 				: Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 0508/2014
+'******************************************************************************************
+Function writeToExcelData(fileName,ArrayDataTowrite)
+	'fileName = "Q:\Test Data\CRM\Male ID.xls"
+	' create an excel object used to open the spreadsheet
+	Set objExcel = CreateObject("Excel.Application")
+    	' open the relevant spreadsheet 
+	Set workbook = objExcel.Workbooks.Open(fileName)
+
+	Set objSheet = objExcel.ActiveWorkbook.Worksheets(1) 
+
+'get the column number where used by is titled
+	For i=1 to 5000
+		rowno = objSheet.Cells(i,1).Value	
+		If lcase(rowno) = "" Then
+			rowno =  i
+			Exit for
+		End If
+	Next
+
+	Do While objExcel.Cells(rowno,1).Value <> "" 
+    	rowno = rowno + 1
+	Loop
+
+	For u =0 to ubound(ArrayDataTowrite)
+	colum = u+1
+		objExcel.Cells(rowno,colum).Value =ArrayDataTowrite(u)
+
+	Next
+	' save the spreadsheet and exit
+	workbook.Close True
+	objExcel.Quit
+
+End Function	
+'*******************************************************************************************
+'Function Name 				: WriteToTextFile
+'Automated by 				: Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 0508/2014
+'******************************************************************************************
+Function WriteToTextFile(filepath,data)
+
+	Set objFSO = CreateObject("Scripting.FileSystemObject")
+	Set objMiFichero = objFSO.OpenTextFile(filepath, 2, true, 0)
+	objMiFichero.WriteLine(data)
+	objMiFichero.close()
+
+End Function
+
+Function ClearTextFile(FilePath)
+	Const ForWriting = 2
+	Set objFSO = CreateObject("Scripting.FileSystemObject")
+	Set objFile = objFSO.OpenTextFile(FilePath, ForWriting)
+	objFile.Write ""
+	objFile.Close
+End Function
+
+
+Function AppendToTextFile(filepath,data)
+   Const ForReading = 1, ForWriting = 2
+   Dim fso, f
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   Set f = fso.OpenTextFile(filepath, 8, True)
+   f.WriteLine data
+End Function
+
+'*******************************************************************************************
+'Function Name 				: iTestwareGetData
+'Automated by 				: 
+'Reviewd by 				 : Mpho Gangashe
+'Date								: 0508/2014
+'******************************************************************************************
+Function getDBTestData(DBQuery,TestStep)
+	Dim result
+	Set cn = CreateObject("ADODB.Connection")
+	cn.ConnectionString = "Provider=SQLOLEDB.1;Server=ILABPTYLTD1;Database=PEPSI_Data_Ware;User ID=U11CSES;Password=P@SSw0rd"
+	cn.Open
+	set result = cn.execute(DBQuery)
+	If result.BOF = False Then
+		Res=result.GetRows
+		getDBTestData=Res
+		cn.Close 
+		reporter.ReportEvent  micPass, TestStep,"The query executed successfully"
+		call AppendToTextFile(ResultsPath,TestStep&",Pass")
+	else
+		reporter.ReportEvent micFail,TestStep,"The query executed did not return any data"
+		call AppendToTextFile(ResultsPath,TestStep&",Fail,The query executed did not return any data")
+		ExitAction
+	End If
+
+End Function
+
+'*******************************************************************************************
+'Function Name 				: CreateExcelReport
+'Automated by 				: Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 0508/2014
+'******************************************************************************************
+Function CreateExcelReport(fileName,sHeading)
+'Create a filesystemObject
+		Set FileHandler = CreateObject("Scripting.FileSystemObject")
+		'Create a non existing file "qtptest.txt "  with overwrite option as True
+		Set ExcelFile = FileHandler.CreateTextFile(fileName,True,False) 
+
+		'Loop Though Array and write the results to CSV file
+		intCount = 0
+		ExcelFile.WriteLine sHeading
+		ExcelFile.WriteLine ""
+		
+'		Do While intCount < ubound(ArrayDataTowrite)
+'			ExcelFile.WriteLine ArrayDataTowrite(intCount)
+'			intCount = intCount + 1
+'		Loop
+		
+		'Close the files
+		ExcelFile.Close
+		'Release the allocated objects
+		Set ExcelFile = Nothing 
+
+End Function
+'*******************************************************************************************
+'Function Name 				: iTestwareGetData
+'Automated by 				: Kabelo Chilwane
+'Reviewd by 				 : Mpho Gangashe
+'Date								: 0508/2014
+'******************************************************************************************
+Function getNumberOfRecords(ByRef ObjectRecord)
+		Dim Rows
+		Rows = 0
+		ObjectRecord.MoveFirst
+		Do Until ObjectRecord.EOF
+			Rows = Rows+1
+			ObjectRecord.MoveNext
+		Loop
+		getNumberOfRecords = Rows
+End Function
+
+
+
+''*******************************************************************************************
+''Function Name 				: SiebelINTgetData
+''Automated by 				: Sastri
+''Reviewd by 				 : 
+''Date								: 09/07/2014
+''******************************************************************************************
+Function getDataSiebelINT(SqlToExec,hname,sname)
+	Dim objConnection, objRecordSet
+	Dim ConnectionString
+	
+	' Create Connection String and Establish Connection
+	Set objConnection = CreateObject("ADODB.Connection")
+
+	strDBConnString = "Driver={Microsoft ODBC for Oracle};" & _
+	"CONNECTSTRING=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST="+hname+")(PORT=1521))" & _
+	"(CONNECT_DATA=(SERVICE_NAME="+sname+")));Uid=readuser;Pwd=readuser127;"
+ 
+
+'	ConnectionString = "DRIVER={Microsoft ODBC for Oracle};HOST=c3d-INT1-scan.vodacom.corp;SERVER=DEDICATED;SERVICE=intcrm;PROTOCAL=olsoctcp;DATABASE=eppix;UID=masiab01;PWD=voda1212;"
+	objConnection.Open strDBConnString
+	
+	'Create the SQL query here
+	'SqlToExec = "select * from slcustm where customer like 'I1785%' and analysis_codes1 = 'CURRENT' order by 1 desc"
+    	
+	' Execute Query
+	Set objRecordSet = CreateObject("ADODB.Recordset")
+	Set objRecordSet = objConnection.execute(SqlToExec)
+	
+	' Test for success
+	' Move to First Row
+	objRecordSet.MoveFirst
+	' Extract the Customer ID
+	SqlToExec = objRecordSet.Fields.Item(0)
+	' Display the value
+	 
+	getDataSiebelINT = SqlToExec
+	' Variable Clean up (To avoid Memory leaks)
+	objConnection.Close
+	Set objRecordSet = Nothing
+	Set objConnection = Nothing
+
+End Function
+
+
+'*******************************************************************************************
+'Function Name 				: getWebEditName
+'Automated by 				: Kabelo Chilwane/Femi Olonisakin
+'Reviewd by 				 : 
+'Date								: 09/05/2014
+'******************************************************************************************
+Function getWebEditName(strType,fileName)
+   Dim fldName, Counter, iRows
+	'fileName = "Q:\Test Data\CRM\Male ID.xls"
+	' create an excel object used to open the spreadsheet
+	Set objExcel = CreateObject("Excel.Application")
+    	' open the relevant spreadsheet 
+	Set workbook = objExcel.Workbooks.Open(fileName)
+
+	Set objSheet = objExcel.ActiveWorkbook.Worksheets(1) 
+
+	'get the column number where name is equal to search paramete
+	iRows = objSheet.UsedRange.Rows.Count
+	For i=2 to iRows
+		ColumValue = objSheet.Cells(i,1).Value	
+		If lcase(ColumValue) = lcase (strType) Then
+			'Gte the Name
+			fldName = objSheet.Cells(i,2).Value
+			Exit for
+		End If
+	Next
+
+	 getWebEditName = fldName
+	' save the spreadsheet and exit
+	workbook.Close True
+	objExcel.Quit
+
+End Function
+
+'*******************************************************************************************
+'Function Name 				: getExcelDataByColumnValue
+'Automated by 				: Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 09/05/2014
+'******************************************************************************************
+Function getExcelDataByColumnValue(fileName,columnname,SearchValue)
+	'fileName = "Q:\Test Data\CRM\Male ID.xls"
+	' create an excel object used to open the spreadsheet
+	Set objExcel = CreateObject("Excel.Application")
+    	' open the relevant spreadsheet 
+	Set workbook = objExcel.Workbooks.Open(fileName)
+
+	Set objSheet = objExcel.ActiveWorkbook.Worksheets(1) 
+
+'	'get the column number where Agent is titled
+'	For i=1 to 2000
+'		ColumValue = objSheet.Cells(1,i).Value	
+'		If lcase(ColumValue) = columnname Then
+'			ColumnNo =  i
+'			Exit for
+'		End If
+'	Next
+
+	columns  = 1 'start at column 1
+	Do While objExcel.Cells(1,columns).Value <> columnname
+    	columns = columns + 1
+	Loop
+
+	Row = 1 'start at row 1
+	Do While objExcel.Cells(Row,columns).Value <> SearchValue
+    	Row = Row + 1
+	Loop
+    values = objExcel.Rows(Row).Value
+    getExcelDataByColumnValue = values
+	' save the spreadsheet and exit
+	workbook.Close True
+	objExcel.Quit
+
+End Function
+
+Function Execute_Query_Access(SQLQuery)
+   	Dim connStr, objConn, getNames
+	connStr = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=Q:\Fuction Libraries\UserControl.accdb"
+	'Define object type
+	Set objConn = CreateObject("ADODB.Connection")
+    'Open Connection
+	objConn.open connStr
+	 
+	'Define recordset and SQL query
+	Set rs = objConn.execute(SQLQuery)
+	 
+	'While loop, loops through all available results
+	DO WHILE NOT rs.EOF
+	'add names seperated by comma to getNames
+	RecordsOut = rs.GetRows
+	
+	Loop
+	 
+	'Close connection and release objects
+	objConn.Close
+	Set rs = Nothing
+	Set objConn = Nothing
+	 Execute_Query_Access = RecordsOut
+End Function
+
+'*******************************************************************************************
+'Function Name 				: getExcelData
+'Automated by 				: Mpho Gangashe
+'Reviewd by 				 : 
+'Date								: 09/05/2014
+'******************************************************************************************
+Function getExcelRows(fileName)
+	'fileName = "Q:\Test Data\CRM\Male ID.xls"
+	' create an excel object used to open the spreadsheet
+	Set objExcel = CreateObject("Excel.Application")
+    	' open the relevant spreadsheet 
+	Set workbook = objExcel.Workbooks.Open(fileName)
+
+	Set objSheet = objExcel.ActiveWorkbook.Worksheets(1) 
+
+	Row = 2 'start at row 1
+	Do While objExcel.Cells(Row,1).Value <> "" 
+		values(row) = objExcel.Rows(Row).Value
+    	Row = Row + 1
+    	
+	Loop
+	
+    getExcelRows = values
+	' save the spreadsheet and exit
+	workbook.Close True
+	objExcel.Quit
+
+End Function
+
+Function UpdateDB(DBQuery)
+	Dim result
+	Set cn = CreateObject("ADODB.Connection")
+	cn.ConnectionString = "Provider=SQLOLEDB.1;Server=ILABPTYLTD1;Database=PEPSI_Data_Ware;User ID=U11CSES;Password=P@SSw0rd"
+	cn.Open
+	set result = cn.execute(DBQuery)
+	cn.Close 
+End Function
+
+Function ConsumeRecord(RecordID,TableName)
+	sql = GetDataFromTextFile("Z:\Test Automation\TestData\Work Flows\ConsumeRecord.txt") 
+	sql = replace(sql,"#Status","Used")
+	sql = replace(sql,"#ID",RecordID)
+	sql = replace(sql,"#Tablename",Tablename)
+	UpdateDB(sql)		
+End Function
+
+Function LockUnlockRecord(strRecordID,status,tableName)
+	sql = GetDataFromTextFile("Z:\Test Automation\TestData\Work Flows\LockData.txt") 
+	sql = replace(sql,"#Status",status)
+	sql = replace(sql,"#ID",strRecordID)
+	sql = replace(sql,"#TableName",tableName)
+	UpdateDB(sql)
+End Function
+
+Function UpdateExecutionID(strRecordID,ExecID)
+	sql = GetDataFromTextFile("Z:\Test Automation\TestData\Work Flows\ExecID.txt") 
+	sql = replace(sql,"#ExecID",ExecID)
+	sql = replace(sql,"#ID",strRecordID)
+	UpdateDB(sql)
+End Function
+
+Function WriteToExcelFile(FileName,ColumName,Value)
+	
+Set objExcel = CreateObject("Excel.Application")
+Set workbook = objExcel.Workbooks.Open(FileName)
+Set objSheet = objExcel.ActiveWorkbook.Worksheets(1) 
+
+rowno = DataTable.GetCurrentRow + 1
+
+For i=1 to 100
+	SScolumn = objSheet.Cells(1,i).Value	
+	If ucase(ColumName) = ucase(SScolumn) Then
+		columnno =  i
+		Exit for
+	End If
+Next
+
+objExcel.Cells(rowno,columnno).Value = Value
+
+workbook.Close True
+objExcel.Quit
+
+End Function
+
+Function writeToExcelData(fileName,ArrayDataTowrite)
+	'fileName = "Q:\Test Data\CRM\Male ID.xls"
+	' create an excel object used to open the spreadsheet
+	Set objExcel = CreateObject("Excel.Application")
+    	' open the relevant spreadsheet 
+	Set workbook = objExcel.Workbooks.Open(fileName)
+
+	Set objSheet = objExcel.ActiveWorkbook.Worksheets(1) 
+
+'get the column number where used by is titled
+	For i=1 to 5000
+		rowno = objSheet.Cells(i,1).Value	
+		If lcase(rowno) = "" Then
+			rowno =  i
+			Exit for
+		End If
+	Next
+
+	Do While objExcel.Cells(rowno,1).Value <> "" 
+    	rowno = rowno + 1
+	Loop
+
+	For u =0 to ubound(ArrayDataTowrite)
+	colum = u+1
+		objExcel.Cells(rowno,colum).Value =ArrayDataTowrite(u)
+
+	Next
+	' save the spreadsheet and exit
+	workbook.Close True
+	objExcel.Quit
+
+End Function	
+
+Function ReadExcelRow(filePath, rowNumber)
+    ' Returns a dictionary of columnName -> value for a specific row
+    Dim objExcel, objWorkbook, ws, colCount, i, colName, dict
+    
+    ' Create Excel application
+    Set objExcel = CreateObject("Excel.Application")
+    objExcel.Visible = False
+    
+    ' Open workbook and first sheet
+    Set objWorkbook = objExcel.Workbooks.Open(filePath)
+    Set ws = objWorkbook.Sheets(1)
+    
+    ' Count columns based on header row (assumes row 1 is headers)
+    colCount = ws.Cells(1, ws.Columns.Count).End(-4159).Column ' -4159 = xlToLeft
+    
+    ' Create dictionary
+    Set dict = CreateObject("Scripting.Dictionary")
+    
+    ' Loop through columns
+    For i = 1 To colCount
+        colName = ws.Cells(1, i).Value
+        dict.Add colName, ws.Cells(rowNumber + 1, i).Value ' +1 because row 1 = headers
+    Next
+    
+    ' Clean up
+    objWorkbook.Close False
+    objExcel.Quit
+    Set ws = Nothing
+    Set objWorkbook = Nothing
+    Set objExcel = Nothing
+    
+    ' Return dictionary
+    Set ReadExcelRowAsDict = dict
+End Function
+

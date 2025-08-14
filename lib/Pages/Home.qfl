@@ -1,0 +1,7 @@
+﻿Dim browserObjHome
+Set browserObjHome = Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*")
+
+Sub ClickStartHere()
+	browserObjHome.WebButton("xpath:=//a[@id='startHereButton']").Click
+End Sub
+
