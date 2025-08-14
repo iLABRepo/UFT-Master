@@ -14,10 +14,15 @@ DataTable.SetCurrentRow 1
 Login DataTable.Value("Username"), DataTable.Value("Password") 
 
 ClickStartHere
+<<<<<<< HEAD
 
 ClickBursaryTypeLink DataTable.Value("BursaryType")
 ClickNext
+=======
+>>>>>>> 90908e781cd5041bcd9ab078106b982f2da067f5
 
+ClickBursaryTypeLink DataTable.Value("BursaryType")
+ClickNext
 AgreeToTermsAndConditions
 
 HighestQualificationAndHistoricalRecord DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName")
