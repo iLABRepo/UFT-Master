@@ -21,15 +21,15 @@ Global
 		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(Function Libraries) = postProject
-		Utility Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Utility Functions.qfl
-		Wits Staff Bursary = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\Wits Staff Bursary.qfl
-		Login = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\Login.qfl
-		Navigation = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\Navigation.qfl
-		Home = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\Home.qfl
-		Data Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Data Functions.qfl
-		Constants = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Constants.qfl
-		Keywords Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Keywords Functions.qfl
-		Generic Form Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\Generic Form Functions.qfl
-		ActionsRequired = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master_DigitalForms\lib\Pages\ActionsRequired.qfl
+		Utility Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Utility Functions.qfl
+		Wits Staff Bursary = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\Wits Staff Bursary.qfl
+		Login = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\Login.qfl
+		Navigation = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\Navigation.qfl
+		Home = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\Home.qfl
+		Data Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Data Functions.qfl
+		Constants = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Constants.qfl
+		Keywords Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Keywords Functions.qfl
+		Generic Form Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\Generic Form Functions.qfl
+		ActionsRequired = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\ActionsRequired.qfl
 	EndGlobalSection
 EndGlobal
