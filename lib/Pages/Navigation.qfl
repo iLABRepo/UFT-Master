@@ -1,0 +1,16 @@
+﻿Dim browserObjNav
+
+Set browserObjNav = Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*")
+
+Sub ClickProfileDropdown()
+	browserObjNav.WebElement("xpath:=//span[@class='text-dark']").Click
+End Sub
+
+Sub ClickLogout()
+	browserObjNav.Link("xpath:=//li[@class='sidebar-item']//a[@class='sidebar-link']").Click
+End Sub
+
+Sub ClickActionsRequired()
+	browserObjNav.Link("xpath:=//LI[@id='actionsRequiredLi']/A").Click
+End Sub
+

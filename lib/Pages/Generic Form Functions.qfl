@@ -1,0 +1,49 @@
+﻿Dim browserObjGSWB
+
+Set browserObjGSWB = Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*")
+
+Sub ClickNext()
+	browserObjGSWB.WebButton("html id:=nextButton").Click
+End Sub
+
+Sub ClickSave()
+	browserObjGSWB.WebButton("html id:=saveButton").Click
+End Sub
+
+Sub ClickClose()
+	browserObjGSWB.WebButton("html id:=closeButton").Click
+End Sub
+
+Sub ClickDiscardSubmission()
+	browserObjGSWB.WebButton("html id:=discardSubmissionButton").Click
+End Sub
+
+Sub ClickBack()
+	browserObjGSWB.WebButton("html id:=prevButton").Click
+End  Sub
+
+Sub ClickSubmit(submissionHeading)
+	browserObjGSWB.WebButton("xpath:=//a[@id='submitButton']").Click
+	browserObjGSWB.WebButton("xpath:=//button[normalize-space()='Yes, submit']").Click
+	If browserObjGSWB.WebElement("xpath:=//h1[text()='" & submissionHeading & "']").Exist Then
+		Reporter.ReportEvent micPass, "Bursary submission", "Bursary submission was successful"
+	Else
+		Reporter.ReportEvent micFail, "Bursary submission", "Bursary submission was unsuccessful"
+		ExitTestIteration
+	End If
+End Sub
+Sub SubmitRequest(approverName)
+	browserObjGSWB.WebList("xpath:=//select[@id='usersNewAssignee']").Select approverName
+	browserObjGSWB.WebButton("xpath:=(//a[@id='processActionModalButton'])[6]").Click
+End Sub
+
+Sub ClickApprove()
+	browserObjGSWB.WebButton("name:=Approve").Click
+End Sub
+
+Sub ClickHRApprove()
+	browserObjGSWB.WebButton("name:=HR Approve").Click
+End Sub
+
+
+
