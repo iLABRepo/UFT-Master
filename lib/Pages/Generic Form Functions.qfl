@@ -26,9 +26,9 @@ Sub ClickSubmit(submissionHeading)
 	browserObjGSWB.WebButton("xpath:=//a[@id='submitButton']").Click
 	browserObjGSWB.WebButton("xpath:=//button[normalize-space()='Yes, submit']").Click
 	If browserObjGSWB.WebElement("xpath:=//h1[text()='" & submissionHeading & "']").Exist Then
-		Reporter.ReportEvent micPass, "Bursary submission", "Bursary submission was successful"
+		Reporter.ReportEvent micPass, "Bursary submission", "Bursary " & submissionHeading & " submission was successful"
 	Else
-		Reporter.ReportEvent micFail, "Bursary submission", "Bursary submission was unsuccessful"
+		Reporter.ReportEvent micFail, "Bursary submission", "Bursary " & submissionHeading & " submission was unsuccessful"
 		ExitTestIteration
 	End If
 End Sub
