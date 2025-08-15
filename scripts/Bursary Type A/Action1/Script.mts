@@ -8,31 +8,22 @@ excelPath = path & "\data\Wits Staff Bursary(1).xlsx"
 
 DataTable.Import excelPath
 
-DataTable.SetCurrentRow 1
 
+Call Login(DataTable.Value("Username"), DataTable.Value("Password"))
 
-Login DataTable.Value("Username"), DataTable.Value("Password") 
+Call ClickStartHere()
 
-ClickStartHere
-<<<<<<< HEAD
+Call ClickBursaryTypeLink(DataTable.Value("BursaryType"))
+Call ClickNext()
+Call AgreeToTermsAndConditions()
 
-ClickBursaryTypeLink DataTable.Value("BursaryType")
-ClickNext
-=======
->>>>>>> 90908e781cd5041bcd9ab078106b982f2da067f5
-
-ClickBursaryTypeLink DataTable.Value("BursaryType")
-ClickNext
-AgreeToTermsAndConditions
-
-HighestQualificationAndHistoricalRecord DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName")
+Call HighestQualificationAndHistoricalRecord(DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName"))
  @@ script infofile_;_ZIP::ssf10.xml_;_
-EnrollmentDetails DataTable.Value("SearchString"), DataTable.Value("ProgramName"),DataTable.Value("YearOfStudy"), DataTable.Value("TotalDuration"), DataTable.Value("PartTimeOrFullTime"), DataTable.Value("NQFLevel")
+Call EnrollmentDetails(DataTable.Value("SearchString"), DataTable.Value("ProgramName"),DataTable.Value("YearOfStudy"), DataTable.Value("TotalDuration"), DataTable.Value("PartTimeOrFullTime"), DataTable.Value("NQFLevel"))
 
-SupportingDocumentsForBursaryA path & DataTable.Value("UploadedFilePath")
+Call SupportingDocumentsForBursary(path & DataTable.Value("UploadedFilePath"))
 
-ClickSubmit DataTable.Value("SubmissionHeading")
-
+Call ClickSubmit(DataTable.Value("SubmissionHeading"))
 
 ClickLogout
 

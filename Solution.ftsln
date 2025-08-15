@@ -9,6 +9,14 @@ Project("") = "Bursary Type A", "scripts\Bursary Type A\Test.tsp", "78720439-6AB
 		OpenAsReadOnly = False
 	EndProjectSection
 EndProject
+Project("") = "Bursary Type B", "scripts\Bursary Type B\Test.tsp", "0360CDDA-50A4-4C3C-816B-7011A80D5DD6"
+	ProjectSection(ProjectMetadata) = HP.UFT.ProjectSystem.Dynamic.ProjectMetadata
+		PathInformation = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\scripts\Bursary Type B\Test.tsp
+		Keyword = QTP
+		OpenAsReadOnly = False
+		BaselineId = 
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +27,10 @@ Global
 		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Release|Any CPU.Build.0 = Release|Any CPU
 		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Release|Any CPU.ActiveCfg = Release|Any CPU
+		0360CDDA-50A4-4C3C-816B-7011A80D5DD6.Debug|Any CPU.Build.0 = Debug|Any CPU
+		0360CDDA-50A4-4C3C-816B-7011A80D5DD6.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		0360CDDA-50A4-4C3C-816B-7011A80D5DD6.Release|Any CPU.Build.0 = Release|Any CPU
+		0360CDDA-50A4-4C3C-816B-7011A80D5DD6.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(Function Libraries) = postProject
 		Utility Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Utility Functions.qfl

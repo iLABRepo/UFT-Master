@@ -4,21 +4,21 @@ Set browserWitsStaffBursary = Browser("title:=.*Wits Apps.*").Page("title:=.*Wit
 Sub ClickBursaryTypeLink(name)
 	browserWitsStaffBursary.Link("name:=" & name).Click
 	If browserWitsStaffBursary.WebElement("xpath:=//h1[text()='" & name & "']").Exist Then
-		Reporter.ReportEvent micPass, "Wits Bursary screen", "User is on the Wits Staff Bursary screen"
+		Reporter.ReportEvent micPass, "Wits Bursary screen", "Wits Staff Bursary screen is displayed"
 	Else
-		Reporter.ReportEvent micFail, "Wits Bursary screen", "User is NOT on the Wits Staff Bursary screen"
+		Reporter.ReportEvent micFail, "Wits Bursary screen", "Wits Staff Bursary screen was NOT displayed"
 	End If
 End Sub
 Sub HighestQualificationAndHistoricalRecord(qualificationString, previousQualificaionName)
-	browserWitsStaffBursary.WebList("html id:=otherhighquali").Select qualificationString
+	browserWitsStaffBursary.WebList("name:=otherhighquali").Select qualificationString
 	browserWitsStaffBursary.WebButton("name:=Add Previous Qualification").Click
 	browserWitsStaffBursary.WebEdit("html id:=column1").Set previousQualificaionName
-	browserWitsStaffBursary.WebButton("xpath:=//DIV[@id='addTableRowModal']/DIV[@role='document'][1]/DIV[1]/DIV[3]/A[1]").Click
+	browserWitsStaffBursary.WebButton("name:=Save", "index:=4").Click
 	ClickNext
 End Sub
 
 Sub AgreeToTermsAndConditions()
-	browserWitsStaffBursary.WebCheckBox("xpath:=//DIV[@id='elementsDiv']/DIV[1]/DIV[2]/LABEL[1]/INPUT[1]").Set "ON"
+	browserWitsStaffBursary.WebCheckBox("value:=I agree to the terms and conditions").Set "ON"
 	ClickNext
 End Sub
 
@@ -27,7 +27,12 @@ Sub EnrollmentDetails(searchString, programName, yearOfStudy, totalDuration, par
 	'browserObjGSWB.WebEdit("xpath:=//input[@id='program']").Set programName
 	browserWitsStaffBursary.WebEdit("name:=typed_academic_program_program").Set searchString
 	browserWitsStaffBursary.WebEdit("name:=typed_academic_program_program").Click
-	browserWitsStaffBursary.WebMenu("html id:=ac-menu-4").Select programName
+	If browserWitsStaffBursary.WebMenu("html id:=ac-menu-4").Exist Then
+		browserWitsStaffBursary.WebMenu("html id:=ac-menu-4").Select programName
+	Else
+		browserWitsStaffBursary.WebMenu("html id:=ac-menu-5").Select programName
+	End If
+	
 	partialEnrollmentDetails  yearOfStudy, totalDuration, partTimeOrFullTime, nQFLevel
 	ClickNext
 End Sub
@@ -46,20 +51,42 @@ Private Sub partialEnrollmentDetails(yearOfStudy, totalDuration, partTimeOrFullT
 	browserWitsStaffBursary.WebList("xpath:=//SELECT[@id='nqfLevel']").Select nQFLevel
 End Sub
 
-Sub SupportingDocumentsForBursaryA(path)
-	browserWitsStaffBursary.WebFile("xpath:=(//input[@name='file'])[4]").Set path
-	browserWitsStaffBursary.WebFile("xpath:=(//input[@name='file'])[5]").Set path
-	ClickNext
-	
-	If browserWitsStaffBursary.WebElement("xpath:=//h2[@id='section-title']").GetROProperty("innertext") = "Preview" Then
-		Reporter.ReportEvent micPass, "File Upload", "File upload was successful"
+Sub SupportingDocumentsForBursary(path)
+	If browserWitsStaffBursary.WebFile("xpath:=(//input[@name='file'])[4]").Exist Then
+		browserWitsStaffBursary.WebFile("xpath:=(//input[@name='file'])[4]").Set path
+		browserWitsStaffBursary.WebFile("xpath:=(//input[@name='file'])[5]").Set path
+		ClickNext
+		  If browserWitsStaffBursary.WebFile("xpath:=(//input[@name='file'])[6]").Exist Then
+        		browserWitsStaffBursary.WebFile("xpath:=(//input[@name='file'])[6]").Set path
+		End If
+
+		If browserWitsStaffBursary.WebElement("xpath:=//h2[@id='section-title']").GetROProperty("innertext") = "Preview" Then
+			Reporter.ReportEvent micPass, "File Upload", "File upload was successful"
+		Else
+			Reporter.ReportEvent micFail, "File Upload", "File upload was unsuccessful"
+			ExitTestIteration
+		End If
 	Else
-		Reporter.ReportEvent micFail, "File Upload", "File upload was unsuccessful"
-		ExitTestIteration
+		Reporter.ReportEvent micFail, "File Upload", "Supporting Documents for Bursary Type A not displayed"
 	End If
+	
 End Sub
 
-
+Sub DependantInformation(witsStudentNumber, title, natureOfRelationship, contactNumber, disabilities, grossIncome, estimatedGrossIncome, taxNumber)
+    
+	browserWitsStaffBursary.WebEdit("name:=student_names_student-number").Set Left(witsStudentNumber, 8)
+	browserWitsStaffBursary.WebEdit("name:=student_names_student-number").Click
+	browserWitsStaffBursary.WebMenu("html id:=ac-menu-4").Select witsStudentNumber
+	browserWitsStaffBursary.WebList("name:=studentNumber").Select title
+	browserWitsStaffBursary.WebList("name:=dependantNatureOfRelationship").Select natureOfRelationship
+	browserWitsStaffBursary.WebEdit("name:=textfield_d999aaa7-e0fb-4c76-8cdf-65a0f7c39caf").Set contactNumber
+	browserWitsStaffBursary.WebList("name:=yes_no_6bba40c0-5b26-4367-9944-c966cd64fa99").Select disabilities
+	browserWitsStaffBursary.WebEdit("name:=textfield_8b3cd6ee-8460-40ec-913b-d03766ff4e56").Set grossIncome
+	browserWitsStaffBursary.WebEdit("name:=textfield_2099f55d-72a8-40fa-82c9-fd351621284d").Set estimatedGrossIncome
+	browserWitsStaffBursary.WebEdit("name:=textfield_d102cfa5-9000-4cb7-b68f-0d7f5a7b90c5").Set taxNumber
+	
+	ClickNext
+End Sub
 
 'Sub SelectFromDateOnStaffemploymentRecord(fromDate)
 '	browserObjGSWB.WebEdit("xpath:=//DIV[normalize-space()='From']/DIV[1]/INPUT[1]").Set fromDate
