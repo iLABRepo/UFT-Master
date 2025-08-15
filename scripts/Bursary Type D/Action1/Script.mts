@@ -1,4 +1,5 @@
-﻿Dim excelPath, fso, scriptsPath, path
+﻿SystemUtil.Run "msedge.exe", "https://qa.intranetapps.wits.ac.za/was/applogin"
+Dim excelPath, fso, scriptsPath, path
 Dim data
 Set fso =  CreateObject("Scripting.FileSystemObject")
 scriptsPath = fso.GetParentFolderName(Environment("TestDir"))
@@ -12,12 +13,10 @@ DataTable.SetCurrentRow 2
 
 Login DataTable.Value("Username"), DataTable.Value("Password") 
 
-ClickStartHere
+StartHere()
 
-ClickBursaryTypeLink DataTable.Value("BursaryType")
-
-ClickNext
-
+BursaryTypeLink DataTable.Value("BursaryType")
+GettingStarted()
 AgreeToTermsAndConditions
 
 DependantInformation DataTable.Value("witsStudentNumber"), DataTable.Value("title"),DataTable.Value("natureOfRelationship"), DataTable.Value("contactNumber"), DataTable.Value("disabilities"), DataTable.Value("grossIncome"), DataTable.Value("estimatedGrossIncome"), DataTable.Value("taxNumber")
@@ -29,6 +28,7 @@ EnrollmentDetails DataTable.Value("SearchString"), DataTable.Value("ProgramName"
 
 SupportingDocumentsForBursary path & DataTable.Value("UploadedFilePath")
 
-ClickSubmit DataTable.Value("SubmissionHeading")
+ClickSubmit()
 
-ClickLogout
+ClickLogout()
+

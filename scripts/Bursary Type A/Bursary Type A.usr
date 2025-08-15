@@ -32,20 +32,36 @@ Lang=none
 
 [TulipInfo]
 ProductName=OpenText Functional Testing
-Version=25.2
+Version=24.4
 
 [TulipAddins]
+ActiveX=
 AF=
+AgGrid=
 AI=
 Database=
+DevExpress=
 File Content=
 Insight=
+Java=
 Mobile=
+Oracle=
+PDF=
+PowerBuilder=
+SAP NWBC Desktop=
+SAP=
+SAPUI5=
+SAPWebExt=
 Windows Applications=
 TEA=
+Terminal Emulators=
 UI Automation=
+UIA Pro=
+UIGrid=
 Visual Basic=
 Web=
+.NET=
+WPF=
 XML=
 
 [ExtraFiles]

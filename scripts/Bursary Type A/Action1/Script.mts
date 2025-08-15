@@ -1,4 +1,5 @@
-﻿Dim excelPath, fso, scriptsPath, path
+﻿SystemUtil.Run "msedge.exe", "https://qa.intranetapps.wits.ac.za/was/applogin"
+Dim excelPath, fso, scriptsPath, path
 Dim data
 Set fso =  CreateObject("Scripting.FileSystemObject")
 scriptsPath = fso.GetParentFolderName(Environment("TestDir"))
@@ -9,21 +10,21 @@ excelPath = path & "\data\Wits Staff Bursary(1).xlsx"
 DataTable.Import excelPath
 
 
-Call Login(DataTable.Value("Username"), DataTable.Value("Password"))
+Call Login(DataTable.Value("Username"), DataTable.Value("Password")) @@ script infofile_;_ZIP::ssf193.xml_;_
 
-Call ClickStartHere()
+Call StartHere()
 
-Call ClickBursaryTypeLink(DataTable.Value("BursaryType"))
-Call ClickNext()
-Call AgreeToTermsAndConditions()
+Call BursaryTypeLink(DataTable.Value("BursaryType")) @@ script infofile_;_ZIP::ssf202.xml_;_
+Call GettingStarted()
+Call AgreeToTermsAndConditions() @@ script infofile_;_ZIP::ssf211.xml_;_
 
-Call HighestQualificationAndHistoricalRecord(DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName"))
+Call HighestQualificationAndHistoricalRecord(DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName")) @@ script infofile_;_ZIP::ssf224.xml_;_
  @@ script infofile_;_ZIP::ssf10.xml_;_
-Call EnrollmentDetails(DataTable.Value("SearchString"), DataTable.Value("ProgramName"),DataTable.Value("YearOfStudy"), DataTable.Value("TotalDuration"), DataTable.Value("PartTimeOrFullTime"), DataTable.Value("NQFLevel"))
+Call EnrollmentDetails(DataTable.Value("SearchString"), DataTable.Value("ProgramName"),DataTable.Value("YearOfStudy"), DataTable.Value("TotalDuration"), DataTable.Value("PartTimeOrFullTime"), DataTable.Value("NQFLevel")) @@ script infofile_;_ZIP::ssf233.xml_;_
 
 Call SupportingDocumentsForBursary(path & DataTable.Value("UploadedFilePath"))
 
-Call ClickSubmit(DataTable.Value("SubmissionHeading"))
+Call ClickSubmit()
 
 ClickLogout
 
