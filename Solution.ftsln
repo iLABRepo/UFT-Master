@@ -10,8 +10,9 @@ Project("") = "Bursary Type A", "scripts\Bursary Type A\Test.tsp", "78720439-6AB
 	EndProjectSection
 EndProject
 Project("") = "Bursary Type D", "scripts\Bursary Type D\Test.tsp", "72554B35-802B-429D-80B1-0B4F2CF25A6A"
+Project("") = "Bursary Type D", "scripts\Bursary Type D\Test.tsp", "CADAED58-CB55-4044-BACB-D9B1D99028FD"
 	ProjectSection(ProjectMetadata) = HP.UFT.ProjectSystem.Dynamic.ProjectMetadata
-		PathInformation = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\scripts\Bursary Type D\Test.tsp
+		PathInformation = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master\scripts\Bursary Type D\Test.tsp
 		Keyword = QTP
 		OpenAsReadOnly = False
 	EndProjectSection
@@ -26,21 +27,21 @@ Global
 		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Release|Any CPU.Build.0 = Release|Any CPU
 		78720439-6ABC-459D-9E4D-9232BDC7D9DA.Release|Any CPU.ActiveCfg = Release|Any CPU
-		72554B35-802B-429D-80B1-0B4F2CF25A6A.Debug|Any CPU.Build.0 = Debug|Any CPU
-		72554B35-802B-429D-80B1-0B4F2CF25A6A.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		72554B35-802B-429D-80B1-0B4F2CF25A6A.Release|Any CPU.Build.0 = Release|Any CPU
-		72554B35-802B-429D-80B1-0B4F2CF25A6A.Release|Any CPU.ActiveCfg = Release|Any CPU
+		CADAED58-CB55-4044-BACB-D9B1D99028FD.Debug|Any CPU.Build.0 = Debug|Any CPU
+		CADAED58-CB55-4044-BACB-D9B1D99028FD.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		CADAED58-CB55-4044-BACB-D9B1D99028FD.Release|Any CPU.Build.0 = Release|Any CPU
+		CADAED58-CB55-4044-BACB-D9B1D99028FD.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(Function Libraries) = postProject
+		Keywords Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Keywords Functions.qfl
 		ActionsRequired = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\ActionsRequired.qfl
+		Utility Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Utility Functions.qfl
 		Wits Staff Bursary = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Pages\Wits Staff Bursary.qfl
 		Login = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Pages\Login.qfl
-		Home = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Pages\Home.qfl
-		Constants = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Constants.qfl
-		Data Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Data Functions.qfl
-		Generic Form Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Pages\Generic Form Functions.qfl
 		Navigation = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Pages\Navigation.qfl
-		Utility Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Utility Functions.qfl
-		Keywords Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Keywords Functions.qfl
+		Home = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Pages\Home.qfl
+		Data Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Data Functions.qfl
+		Constants = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Constants.qfl
+		Generic Form Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master_DigitalForms\UFT-Master_DigitalForms\lib\Pages\Generic Form Functions.qfl
 	EndGlobalSection
 EndGlobal
