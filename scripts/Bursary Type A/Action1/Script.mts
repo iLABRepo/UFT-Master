@@ -1,4 +1,5 @@
-﻿Dim excelPath, fso, scriptsPath, path
+﻿SystemUtil.Run "msedge.exe", "https://qa.intranetapps.wits.ac.za/was/applogin"
+Dim excelPath, fso, scriptsPath, path
 Dim data
 Set fso =  CreateObject("Scripting.FileSystemObject")
 scriptsPath = fso.GetParentFolderName(Environment("TestDir"))
@@ -14,10 +15,12 @@ Call Login(DataTable.Value("Username"), DataTable.Value("Password"))
 Call StartHere()
  
 Call BursaryTypeLink(DataTable.Value("BursaryType"))
+
 Call GettingStarted()
+
 Call AgreeToTermsAndConditions()
  
-Call HighestQualificationAndHistoricalRecord(DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName"))
+Call HighestQualificationAndHistoricalRecord(DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName"), DataTable.Value("educationInstitution"), DataTable.Value("witsBursaryRecievedBefore"), DataTable.Value("yearOfQualification"), DataTable.Value("yearOfRegistration"), DataTable.Value("Full_PartTime"))
  
 Call EnrollmentDetails(DataTable.Value("SearchString"), DataTable.Value("ProgramName"),DataTable.Value("YearOfStudy"), DataTable.Value("TotalDuration"), DataTable.Value("PartTimeOrFullTime"), DataTable.Value("NQFLevel"))
  
