@@ -1,5 +1,4 @@
 ﻿SystemUtil.Run "msedge.exe", "https://qa.intranetapps.wits.ac.za/was/applogin"
-SystemUtil.Run "msedge.exe", "https://qa.intranetapps.wits.ac.za/was/applogin"
 Dim excelPath, fso, scriptsPath, path
 Dim data
 Set fso =  CreateObject("Scripting.FileSystemObject")
