@@ -11,6 +11,6 @@ Function ClickActionsRequired()
 	If StrComp(browserObjNav.WebElement("html id:=form-title").GetROProperty("innertext"), "Actions Required", vbTextCompare) = 0  Then
     	 	Reporter.ReportEvent micPass, "Actions Required", "Actions Required screen is displayed"
  	Else
- 		Reporter.ReportEvent micPass, "Actions Required", "Actions Required screen could not displayed"
+ 		Reporter.ReportEvent micFail, "Actions Required", "Actions Required screen could not displayed"
     End If
 End Function

@@ -1,14 +1,15 @@
 ﻿Dim browserObj
 Set browserObj = Browser("title:=.* Wits Apps.*").Page("title:=.* Wits Apps.*")
 
-Function Login(username, password)
-	If  browserObj.WebElement("innertext:=Sign in to your account to continue").Exist Then
-	        browserObj.WebEdit("name:=username").Set username
-	        browserObj.WebEdit("name:=password").SetSecure password
-	        browserObj.WebButton("innertext:=Sign in").Click
+Sub Login(username, password)
+	browserObj.WebEdit("name:=username").Set username
+	browserObj.WebEdit("name:=password").SetSecure password
+	browserObj.WebButton("innertext:=Sign in").Click
+	If Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*").WebButton("xpath:=//a[@id='startHereButton']").Exist Then
+		Reporter.ReportEvent micPass, "Login", "Login was successful"
 	Else
-	      Reporter.ReportEvent micFail, "Login", "Login page failed to display"
-	      ExitTestIteration
-	End  If
-End Function
+		Reporter.ReportEvent micFail, "Login", "Login was unsuccessful"
+		ExitTestIteration
+	End If
+End Sub
 

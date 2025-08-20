@@ -8,20 +8,28 @@ excelPath = path & "\data\Wits Staff Bursary(1).xlsx"
  
 DataTable.Import excelPath
  
+DataTable.SetCurrentRow(2)
+
+Call LaunchBrowser(DataTable.Value("browser"), DataTable.Value("url"))
  
 Call Login(DataTable.Value("Username"), DataTable.Value("Password"))
  
 Call StartHere()
  
 Call BursaryTypeLink(DataTable.Value("BursaryType"))
+
 Call GettingStarted()
+
 Call AgreeToTermsAndConditions()
- 
-Call HighestQualificationAndHistoricalRecord(DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName"))
+
+Call DependantInformation(DataTable.Value("witsStudentNumber"), DataTable.Value("title"),DataTable.Value("natureOfRelationship"), DataTable.Value("contactNumber"), DataTable.Value("disabilities"), DataTable.Value("grossIncome"), DataTable.Value("estimatedGrossIncome"), DataTable.Value("taxNumber"))
+
+
+Call HighestQualificationAndHistoricalRecord(DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName"), DataTable.Value("educationInstitution"), DataTable.Value("witsBursaryRecievedBefore"), DataTable.Value("yearOfQualification"), DataTable.Value("yearOfRegistration"), DataTable.Value("Full_PartTime"), DataTable.Value("BursaryType"))
  
 Call EnrollmentDetails(DataTable.Value("SearchString"), DataTable.Value("ProgramName"),DataTable.Value("YearOfStudy"), DataTable.Value("TotalDuration"), DataTable.Value("PartTimeOrFullTime"), DataTable.Value("NQFLevel"))
  
-Call SupportingDocumentsForBursary(path & DataTable.Value("UploadedFilePath"))
+Call SupportingDocumentsForBursary(path & DataTable.Value("UploadedFilePath"), path & DataTable.Value("UploadedFilePathTxt"), path & DataTable.Value("UploadedFilePathDocx"))
  
 Call ClickSubmit()
  

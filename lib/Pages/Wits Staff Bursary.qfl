@@ -142,7 +142,7 @@ Function HRApproval()
 	Call BursaryTypeLinkOnActionsRequred(DataTable.Value("BursaryType"))
 	Call ClickOnTheFirstSubmission()
 	
-	Call HRSubmitBursaryApproval()
+	Call HRSubmitBursaryApproval(100, "Yes", "Yes", "Exception")
 	
 	Call ClickLogout()
 End Function

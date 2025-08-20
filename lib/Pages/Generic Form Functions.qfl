@@ -30,9 +30,6 @@ Function ClickApprove()
 	browserObjGSWB.WebButton("name:=Approve").Click
 End Function
 
-Function ClickHRApprove()
-	browserObjGSWB.WebButton("name:=HR Approve").Click
-End Function
 
 Function SelectNextApprover(approverName)
 	browserObjGSWB.WebList("xpath:=//select[@id='usersNewAssignee']").Select approverName

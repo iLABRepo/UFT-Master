@@ -42,7 +42,7 @@ excelPath = path & "\data\Wits Staff Bursary(1).xlsx"
  
 DataTable.Import excelPath
 
-Call LineManagerApproval()
+'Call LineManagerApproval()
 Call HRApproval()
 
  @@ script infofile_;_ZIP::ssf24.xml_;_

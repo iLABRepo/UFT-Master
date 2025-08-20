@@ -33,8 +33,8 @@ Function HRSubmitBursaryApproval(percentage, overrideCalculatedPercentage, isDoc
 	browserObjAR.WebList("xpath:=//select[@id='override-system-percentage']").Select overrideCalculatedPercentage
 	browserObjAR.WebList("xpath:=//select[@id='dropdown_ecb6df61-d5c8-420b-adf6-1faaadd72b62']").Select isDocumentsProvided
 	
-	browserObjAR.WebElement("xpath:=//body[@data-id='override-reason']//p").Click
-	browserObjAR.WebElement("xpath:=//body[@data-id='override-reason']//p").Set reasonForOverride
+	browserObjAR.RunScript _
+    "document.getElementById('//body[@data-id='override-reason']//p').innerText = '" & reasonForOverride & "';"
 	Call ClickNext()
 	Call ClickSubmit()
 	
