@@ -7,5 +7,10 @@ Function ClickLogout()
     browserObjNav.Link("xpath:=//li[@class='sidebar-item']//a[@class='sidebar-link']").Click
 End Function
 Function ClickActionsRequired()
-    browserObjNav.Link("xpath:=//LI[@id='actionsRequiredLi']/A").Click
+	browserObjNav.Link("xpath:=//LI[@id='actionsRequiredLi']/A").Click
+	If StrComp(browserObjNav.WebElement("html id:=form-title").GetROProperty("innertext"), "Actions Required", vbTextCompare) = 0  Then
+    	 	Reporter.ReportEvent micPass, "Actions Required", "Actions Required screen is displayed"
+ 	Else
+ 		Reporter.ReportEvent micPass, "Actions Required", "Actions Required screen could not displayed"
+    End If
 End Function

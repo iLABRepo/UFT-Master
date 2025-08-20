@@ -2,7 +2,40 @@
 
 Set browserObjAR = Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*")
 
-Sub ClickOnTheFirstSubmission
+Function ClickOnTheFirstSubmission
 	browserObjAR.WebElement("xpath:=(//td/a)[1]").Click
-End Sub
+End Function
 
+Function BursaryTypeLinkOnActionsRequred(name)
+	If StrComp(browserObjNav.WebElement("html id:=form-title").GetROProperty("innertext"), "Actions Required", vbTextCompare) = 0 Then
+	        Reporter.ReportEvent micPass, "Click Bursary Type Link", "Bursaries page displayed"
+	        browserObjAR.Link("name:=" & name).Click
+	Else
+	        Reporter.ReportEvent micFail, "Click Bursary Type Link", "Bursaries page could not display"
+	        ExitIteration
+	End If
+End Function
+
+Function SubmitRequest(approverName)
+	If browserObjAR.WebList("xpath:=//select[@id='usersNewAssignee']").Exist(3) Then
+		browserObjAR.WebList("xpath:=//select[@id='usersNewAssignee']").Select approverName
+		browserObjAR.WebButton("name:=Submit", "index:=4").Click
+		Reporter.ReportEvent micPass, "Submit Approval", "Approval Submission successful"
+	Else
+		Reporter.ReportEvent micFail, "Submit Approval", "Approval Submission was NOT successful"
+		ExitIteration
+	End If
+End Function
+
+Function HRSubmitBursaryApproval(percentage, overrideCalculatedPercentage, isDocumentsProvided, reasonForOverride)
+	browserObjAR.WebButton("name:=HR Approve").Click
+	browserObjAR.WebList("xpath:=//select[@id='percentage-remission']").Select CStr(percentage)
+	browserObjAR.WebList("xpath:=//select[@id='override-system-percentage']").Select overrideCalculatedPercentage
+	browserObjAR.WebList("xpath:=//select[@id='dropdown_ecb6df61-d5c8-420b-adf6-1faaadd72b62']").Select isDocumentsProvided
+	
+	browserObjAR.WebElement("xpath:=//body[@data-id='override-reason']//p").Click
+	browserObjAR.WebElement("xpath:=//body[@data-id='override-reason']//p").Set reasonForOverride
+	Call ClickNext()
+	Call ClickSubmit()
+	
+End Function

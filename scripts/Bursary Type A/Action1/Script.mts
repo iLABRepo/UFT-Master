@@ -27,47 +27,26 @@ Call ClickSubmit()
  
 Call ClickLogout()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 'Line Manager accept test
-'DataTable.Import excelPath
 
-'DataTable.SetCurrentRow 1
 
-'LineManagerUsername
-'Login DataTable.Value("LineManagerUsername"), DataTable.Value("Password")
 
-'ClickActionsRequired
 
-'ClickBursaryTypeLink DataTable.Value("BursaryType")
-'ClickOnTheFirstSubmission
+Dim excelPath, fso, scriptsPath, path
+Dim data
+Set fso =  CreateObject("Scripting.FileSystemObject")
+scriptsPath = fso.GetParentFolderName(Environment("TestDir"))
+path = fso.GetParentFolderName(scriptsPath)
+ 
+excelPath = path & "\data\Wits Staff Bursary(1).xlsx"
+ 
+DataTable.Import excelPath
 
-'ClickApprove
+Call LineManagerApproval()
+Call HRApproval()
 
-'SubmitRequest DataTable.Value("HRApprover")
+ @@ script infofile_;_ZIP::ssf24.xml_;_
+
 
 
 

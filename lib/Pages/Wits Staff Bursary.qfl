@@ -118,4 +118,33 @@ Function DependantInformation(witsStudentNumber, title, natureOfRelationship, co
 	End If
 End Function
 
+Function LineManagerApproval()
+'Line Manager accept test
+	Call Login(DataTable.Value("LineManagerUsername"), DataTable.Value("Password"))
+	
+	Call ClickActionsRequired()
+	
+	Call BursaryTypeLinkOnActionsRequred(DataTable.Value("BursaryType"))
+	Call ClickOnTheFirstSubmission()
+	
+	Call ClickApprove()
+	
+	Call SubmitRequest(DataTable.Value("HRApprover"))
+	
+	Call ClickLogout()
+End Function
+
+Function HRApproval()
+	Call Login(DataTable.Value("HRUsername"), DataTable.Value("Password"))
+	
+	Call ClickActionsRequired()
+	
+	Call BursaryTypeLinkOnActionsRequred(DataTable.Value("BursaryType"))
+	Call ClickOnTheFirstSubmission()
+	
+	Call HRSubmitBursaryApproval()
+	
+	Call ClickLogout()
+End Function
+
 
