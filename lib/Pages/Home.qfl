@@ -1,12 +1,7 @@
 ﻿Dim browserObjHome
 Set browserObjHome = Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*")
 
-Function StartHere()
-	If browserObjHome.WebButton("xpath:=//a[@id='startHereButton']").Exist Then
-                Reporter.ReportEvent micPass, "Login", "Login was successful"
-                browserObjHome.WebButton("xpath:=//a[@id='startHereButton']").Click
-	Else
-                Reporter.ReportEvent micFail, "Login", "Login was unsuccessful"
-                ExitTestIteration
-	End If
-End Function
+Sub ClickStartHere()
+	browserObjHome.WebButton("xpath:=//a[@id='startHereButton']").Click
+End Sub
+

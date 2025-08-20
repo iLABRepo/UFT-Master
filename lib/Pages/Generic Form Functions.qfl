@@ -1,45 +1,49 @@
 ﻿Dim browserObjGSWB
+
 Set browserObjGSWB = Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*")
 
-Function ClickNext()
+Sub ClickNext()
 	browserObjGSWB.WebButton("html id:=nextButton").Click
-End Function
+End Sub
 
-Function ClickSave()
+Sub ClickSave()
 	browserObjGSWB.WebButton("html id:=saveButton").Click
-End Function
+End Sub
 
-Function ClickClose()
+Sub ClickClose()
 	browserObjGSWB.WebButton("html id:=closeButton").Click
-End Function
+End Sub
 
-Function ClickDiscardSubmission()
+Sub ClickDiscardSubmission()
 	browserObjGSWB.WebButton("html id:=discardSubmissionButton").Click
-End Function
+End Sub
 
-Function ClickBack()
+Sub ClickBack()
 	browserObjGSWB.WebButton("html id:=prevButton").Click
-End Function
+End  Sub
 
-Function ClickSubmit()
+Sub ClickSubmit(submissionHeading)
 	browserObjGSWB.WebButton("xpath:=//a[@id='submitButton']").Click
 	browserObjGSWB.WebButton("xpath:=//button[normalize-space()='Yes, submit']").Click
-End Function
-
-Function ClickApprove()
-	browserObjGSWB.WebButton("name:=Approve").Click
-End Function
-
-Function ClickHRApprove()
-	browserObjGSWB.WebButton("name:=HR Approve").Click
-End Function
-
-Function SelectNextApprover(approverName)
+	If browserObjGSWB.WebElement("xpath:=//h1[text()='" & submissionHeading & "']").Exist Then
+		Reporter.ReportEvent micPass, "Bursary submission", "Bursary " & submissionHeading & " submission was successful"
+	Else
+		Reporter.ReportEvent micFail, "Bursary submission", "Bursary " & submissionHeading & " submission was unsuccessful"
+		ExitTestIteration
+	End If
+End Sub
+Sub SubmitRequest(approverName)
 	browserObjGSWB.WebList("xpath:=//select[@id='usersNewAssignee']").Select approverName
-End Function
-
-Function ClickSubmitOnModal()
 	browserObjGSWB.WebButton("xpath:=(//a[@id='processActionModalButton'])[6]").Click
-End Function
+End Sub
+
+Sub ClickApprove()
+	browserObjGSWB.WebButton("name:=Approve").Click
+End Sub
+
+Sub ClickHRApprove()
+	browserObjGSWB.WebButton("name:=HR Approve").Click
+End Sub
+
 
 
