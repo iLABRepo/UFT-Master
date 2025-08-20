@@ -34,3 +34,12 @@ Call SupportingDocumentsForBursary(path & DataTable.Value("UploadedFilePath"), p
 Call ClickSubmit()
  
 Call ClickLogout()
+
+Call LineManagerApproval()
+
+Call HRApproval()
+
+
+
+
+

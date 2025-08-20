@@ -1,4 +1,4 @@
-﻿Dim excelPath, fso, scriptsPath, path
+﻿Dim excelPath, fso, scriptsPath, path @@ script infofile_;_ZIP::ssf235.xml_;_
 Dim data
 Set fso =  CreateObject("Scripting.FileSystemObject")
 scriptsPath = fso.GetParentFolderName(Environment("TestDir"))
@@ -30,47 +30,9 @@ Call ClickSubmit()
 
 Call ClickLogout()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'Line Manager accept test
-'DataTable.Import excelPath
-
-'DataTable.SetCurrentRow 1
-
-'LineManagerUsername
-'Login DataTable.Value("LineManagerUsername"), DataTable.Value("Password")
-
-'ClickActionsRequired
-
-'ClickBursaryTypeLink DataTable.Value("BursaryType")
-'ClickOnTheFirstSubmission
-
-'ClickApprove
-
-'SubmitRequest DataTable.Value("HRApprover")
+Call LineManagerApproval()
+ 
+Call HRApproval()
 
 
 

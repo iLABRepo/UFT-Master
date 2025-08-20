@@ -1,8 +1,65 @@
-﻿Dim browserObjAR
+﻿Set dr = CreateObject("Mercury.DeviceReplay")
 
+Dim browserObjAR
 Set browserObjAR = Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*")
 
 Sub ClickOnTheFirstSubmission
 	browserObjAR.WebElement("xpath:=(//td/a)[1]").Click
 End Sub
+
+Function BursaryTypeLinkOnActionsRequred(name)
+If StrComp(browserObjNav.WebElement("html id:=form-title").GetROProperty("innertext"), "Actions Required", vbTextCompare) = 0 Then
+            Reporter.ReportEvent micPass, "Click Bursary Type Link", "Bursaries page displayed"
+            browserObjAR.Link("name:=" & name).Click
+Else
+            Reporter.ReportEvent micFail, "Click Bursary Type Link", "Bursaries page could not display"
+            ExitIteration
+End If
+End Function
+
+Function SubmitRequest(approverName)
+If browserObjAR.WebList("xpath:=//select[@id='usersNewAssignee']").Exist(3) Then
+        browserObjAR.WebList("xpath:=//select[@id='usersNewAssignee']").Select approverName
+        browserObjAR.WebButton("name:=Submit", "index:=4").Click
+        Reporter.ReportEvent micPass, "Submit Approval", "Approval Submission successful"
+Else
+        Reporter.ReportEvent micFail, "Submit Approval", "Approval Submission was NOT successful"
+        ExitIteration
+End If
+End Function
+
+Function HRSubmitBursaryApproval(percentage, overrideCalculatedPercentage, isDocumentsProvided, reasonForOverride)
+    browserObjAR.WebButton("name:=HR Approve").Click
+    browserObjAR.WebList("xpath:=//select[@id='percentage-remission']").Select CStr(percentage)
+    If browserObjAR.WebList("xpath:=//select[@id='override-system-percentage']").Exist(3) Then
+    	browserObjAR.WebList("xpath:=//select[@id='override-system-percentage']").Select overrideCalculatedPercentage
+    	browserObjAR.WebList("xpath:=//select[@id='dropdown_ecb6df61-d5c8-420b-adf6-1faaadd72b62']").Select isDocumentsProvided
+    Else
+    	browserObjAR.WebList("xpath:=//select[@id='dropdown_bc03d179-d522-4893-9c5c-134de426da76']").Select isDocumentsProvided
+    End If
+    
+    If browserObjAR.Frame("html id:=override-reason_ifr").Exist(5) Then
+    	browserObjAR.Frame("html id:=override-reason_ifr").WebElement("innertext:=body { font-family:Helvetica,Arial,sans-serif; font-size:16px }", "html tag:=HTML").Click
+    	dr.SendString reasonForOverride
+    	browserObjAR.Frame("html id:=textarea_3499df35-9968-41b1-9833-59b87b21bab2_ifr").WebElement("innertext:=body { font-family:Helvetica,Arial,sans-serif; font-size:16px }", "html tag:=HTML").Click
+    	dr.SendString reasonForOverride
+    Else
+    	browserObjAR.Frame("html id:=textarea_87c73dcd-dddd-41e4-a60f-f9fc4cd15705_ifr").WebElement("innertext:=body { font-family:Helvetica,Arial,sans-serif; font-size:16px }", "html tag:=HTML").Click
+	dr.SendString reasonForOverride
+    End If
+    Set dr = Nothing
+    Call ClickNext()
+    If browserObjAR.WebElement("xpath:=//h2[text()='Preview']").Exist(5) Then
+		Reporter.ReportEvent micPass, "Preview page", "Preview screen is displayed"
+		Call ClickSubmit()
+	Else
+		Reporter.ReportEvent micFail, "Preview page", "Preview screen is not displayed"	
+		ExitTestIteration
+    	End If
+End Function
+
+
+
+
+
 
