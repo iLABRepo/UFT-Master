@@ -12,13 +12,13 @@ Function GettingStarted()
 End Function
 
 Function BursaryTypeLink(name)
-	If browserWitsStaffBursary.WebElement("xpath:=//h2[text()='Select option to continue']").Exist Then
-	        Reporter.ReportEvent micPass, "ClickBursaryTypeLink", "Bursaries page displayed"
-	        browserWitsStaffBursary.Link("name:=" & name).Click
-	Else
-	        Reporter.ReportEvent micFail, "BursaryTypeLink", "Bursaries page could not display"
-	        ExitIteration
-	End If
+If browserWitsStaffBursary.WebElement("xpath:=//h2[text()='Select option to continue']").Exist Then
+        Reporter.ReportEvent micPass, "Bursary type page", "Select option to continue screen is displayed"
+        browserWitsStaffBursary.Link("name:=" & name).Click
+Else
+        Reporter.ReportEvent micFail, "Bursary type page", "Select option to continue screen is not displayed"
+        ExitIteration
+End If
 End Function
 
 Function HighestQualificationAndHistoricalRecord(qualificationString, previousQualificaionName, educationInstitution, witsBursaryReceivedBefore, yearOfQualification, yearOfRegistration, Full_PartTime, BursaryType)
@@ -41,35 +41,35 @@ If browserWitsStaffBursary.WebElement("xpath:=//h2[@id='section-title']").Exist 
         browserWitsStaffBursary.WebList("xpath:=//select[@id='column5']").Select yearOfQualification
 
         browserWitsStaffBursary.WebButton("xpath:=(//a[text()='Save'])[5]").Click
-If StrComp(BursaryType, "Bursary Type A - Staff studying at Wits", vbTextCompare) = 0 Then
-
-            browserWitsStaffBursary.WebButton("name:=Add Previous Registration").Click
-
-            browserWitsStaffBursary.WebList("xpath:=//select[@id='column1']").Select yearOfRegistration
-
-            browserWitsStaffBursary.WebList("xpath:=//select[@id='column2']").Select Full_PartTime
-
-            browserWitsStaffBursary.WebList("xpath:=//select[@id='column3']").Select witsBursaryReceivedBefore
-
-            browserWitsStaffBursary.WebButton("xpath:=(//a[text()='Save'])[5]").Click
-End If
-Call ClickNext()
-Else
-
-        Reporter.ReportEvent micFail, "Highest Qualification and Historical Record page", "Highest Qualification and Historical Records screen is not displayed"
-
-           ExitIteration
-End If
+	If StrComp(BursaryType, "Bursary Type A - Staff studying at Wits", vbTextCompare) = 0 Then
+	
+	            browserWitsStaffBursary.WebButton("name:=Add Previous Registration").Click
+	
+	            browserWitsStaffBursary.WebList("xpath:=//select[@id='column1']").Select yearOfRegistration
+	
+	            browserWitsStaffBursary.WebList("xpath:=//select[@id='column2']").Select Full_PartTime
+	
+	            browserWitsStaffBursary.WebList("xpath:=//select[@id='column3']").Select witsBursaryReceivedBefore
+	
+	            browserWitsStaffBursary.WebButton("xpath:=(//a[text()='Save'])[5]").Click
+	End If
+	Call ClickNext()
+	Else
+	
+	        Reporter.ReportEvent micFail, "Highest Qualification and Historical Record page", "Highest Qualification and Historical Records screen is not displayed"
+	
+	           ExitIteration
+	End If
 End Function
  
 
 Function AgreeToTermsAndConditions()
 	If browserWitsStaffBursary.WebElement("xpath:=//h2[@id='section-title']").Exist Then
-	        Reporter.ReportEvent micPass, "AgreeToTermsAndConditions", "Funding Agreement page displayed"
+	       Reporter.ReportEvent micPass, "Agree to terms and conditions", "Funding Agreement Terms and Conditions screen is displayed"
 		browserWitsStaffBursary.WebCheckBox("value:=I agree to the terms and conditions").Set "ON"
 		ClickNext
 	Else
-	        Reporter.ReportEvent micFail, "AgreeToTermsAndConditions", "Funding Agreement page could not display"
+	        Reporter.ReportEvent micFail, "Agree to terms and conditions", "Funding Agreement Terms and Conditions screen could not be displayed"
 	        ExitIteration
 	End If
 End Function
@@ -77,7 +77,7 @@ End Function
 
 Function EnrollmentDetails(searchString, programName, yearOfStudy, totalDuration, partTimeOrFullTime, nQFLevel)
 	If browserWitsStaffBursary.WebElement("xpath:=//h2[@id='section-title']").Exist Then
-		Reporter.ReportEvent micPass, "EnrollmentDetails", "Enrollment Information page displayed"
+		Reporter.ReportEvent micPass, "EnrollmentDetails", "Enrollment Details page displayed"
 		browserWitsStaffBursary.WebEdit("name:=typed_academic_program_program").Set searchString
 		browserWitsStaffBursary.WebEdit("name:=typed_academic_program_program").Click
 		If browserWitsStaffBursary.WebMenu("html id:=ac-menu-4").Exist Then
@@ -89,7 +89,7 @@ Function EnrollmentDetails(searchString, programName, yearOfStudy, totalDuration
 		partialEnrollmentDetails  yearOfStudy, totalDuration, partTimeOrFullTime, nQFLevel
 		ClickNext
 	Else
-    		Reporter.ReportEvent micFail, "EnrollmentDetails", "Enrollment Information page could not display"
+    		Reporter.ReportEvent micFail, "EnrollmentDetails", "Enrollment Details page could not display"
       		ExitIteration
 	End If
 End Function
@@ -108,7 +108,7 @@ Private Sub partialEnrollmentDetails(yearOfStudy, totalDuration, partTimeOrFullT
 	browserWitsStaffBursary.WebList("xpath:=//SELECT[@id='nqfLevel']").Select nQFLevel
 End Sub
 
-Function SupportingDocumentsForBursary(path)
+Function SupportingDocumentsForBursary(path, Optional path1, Optional path2)
 	If browserWitsStaffBursary.WebElement("xpath:=//h2[@id='section-title']").Exist Then
 	        Reporter.ReportEvent micPass, "SupportingDocumentsForBursary", "Supporting Documents page displayed"
 	        browserWitsStaffBursary.WebFile("xpath:=(//input[@name='file'])[4]").Set path
