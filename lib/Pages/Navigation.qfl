@@ -1,16 +1,16 @@
 ﻿Dim browserObjNav
-
 Set browserObjNav = Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*")
-
-Sub ClickProfileDropdown()
-	browserObjNav.WebElement("xpath:=//span[@class='text-dark']").Click
-End Sub
-
-Sub ClickLogout()
-	browserObjNav.Link("xpath:=//li[@class='sidebar-item']//a[@class='sidebar-link']").Click
-End Sub
-
-Sub ClickActionsRequired()
+Function ClickProfileDropdown()
+    browserObjNav.WebElement("xpath:=//span[@class='text-dark']").Click
+End Function
+Function ClickLogout()
+    browserObjNav.Link("xpath:=//li[@class='sidebar-item']//a[@class='sidebar-link']").Click
+End Function
+Function ClickActionsRequired()
 	browserObjNav.Link("xpath:=//LI[@id='actionsRequiredLi']/A").Click
-End Sub
-
+	If StrComp(browserObjNav.WebElement("html id:=form-title").GetROProperty("innertext"), "Actions Required", vbTextCompare) = 0  Then
+    	 	Reporter.ReportEvent micPass, "Actions Required", "Actions Required screen is displayed"
+ 	Else
+ 		Reporter.ReportEvent micFail, "Actions Required", "Actions Required screen could not displayed"
+    End If
+End Function

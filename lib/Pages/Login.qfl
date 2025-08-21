@@ -1,15 +1,29 @@
 ﻿Dim browserObj
 Set browserObj = Browser("title:=.* Wits Apps.*").Page("title:=.* Wits Apps.*")
 
-Sub Login(username, password)
+Function Login(username, password)
 	browserObj.WebEdit("name:=username").Set username
-	browserObj.WebEdit("name:=password").SetSecure password & "2"
+	browserObj.WebEdit("name:=password").SetSecure password
 	browserObj.WebButton("innertext:=Sign in").Click
-	If Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*").WebButton("xpath:=//a[@id='startHereButton']").Exist Then
+	If  Browser("title:=.*Wits Apps.*").WebLink("xpath:=//LI[@id='home-menu']/A").Exist Then
 		Reporter.ReportEvent micPass, "Login", "Login was successful"
 	Else
 		Reporter.ReportEvent micFail, "Login", "Login was unsuccessful"
 		ExitTestIteration
 	End If
-End Sub
+End Function
+
+Function LaunchBrowser(browser, url)
+On Error Resume Next
+    SystemUtil.CloseProcessByName browser
+If Err.Number <> 0 Then
+        Reporter.ReportEvent micWarning, "Close Browser", "Failed to close broswer "  & browser & Err.Description
+Err.Clear
+Else
+        Reporter.ReportEvent micDone, "Close Browser", "All browsers closed successfully" 
+        SystemUtil.Run browser, url
+End If
+End Function
+
+
 

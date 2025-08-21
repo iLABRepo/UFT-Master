@@ -1,74 +1,40 @@
-﻿SystemUtil.Run "msedge.exe", "https://qa.intranetapps.wits.ac.za/was/applogin"
-Dim excelPath, fso, scriptsPath, path
+﻿Dim excelPath, fso, scriptsPath, path, bursaryType
 Dim data
+bursaryType = "Bursary Type A - Staff studying at Wits"
 Set fso =  CreateObject("Scripting.FileSystemObject")
 scriptsPath = fso.GetParentFolderName(Environment("TestDir"))
 path = fso.GetParentFolderName(scriptsPath)
-
+ 
 excelPath = path & "\data\Wits Staff Bursary(1).xlsx"
-
+ 
 DataTable.Import excelPath
 
-
-Call Login(DataTable.Value("Username"), DataTable.Value("Password")) @@ script infofile_;_ZIP::ssf193.xml_;_
-
-Call StartHere()
-
-Call BursaryTypeLink(DataTable.Value("BursaryType")) @@ script infofile_;_ZIP::ssf202.xml_;_
+Call LaunchBrowser(DataTable.Value("browser"), DataTable.Value("url"))
+ 
+Call Login(DataTable.Value("Username"), DataTable.Value("Password"))
+ 
+Call ClickStartHere()
+ 
+Call BursaryTypeLink(bursaryType)
 Call GettingStarted()
-Call AgreeToTermsAndConditions() @@ script infofile_;_ZIP::ssf211.xml_;_
-
-Call HighestQualificationAndHistoricalRecord(DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName")) @@ script infofile_;_ZIP::ssf224.xml_;_
- @@ script infofile_;_ZIP::ssf10.xml_;_
-Call EnrollmentDetails(DataTable.Value("SearchString"), DataTable.Value("ProgramName"),DataTable.Value("YearOfStudy"), DataTable.Value("TotalDuration"), DataTable.Value("PartTimeOrFullTime"), DataTable.Value("NQFLevel")) @@ script infofile_;_ZIP::ssf233.xml_;_
-
+Call AgreeToTermsAndConditions()
+ 
+Call  HighestQualificationAndHistoricalRecord(DataTable.Value("QualificationString"), DataTable.Value("PreviousQualificationName"), DataTable.Value("educationInstitution"), DataTable.Value("witsBursaryRecievedBefore"), DataTable.Value("yearOfQualification"), DataTable.Value("yearOfRegistration"), DataTable.Value("Full_PartTime"), bursaryType)
+ 
+Call EnrollmentDetails(DataTable.Value("SearchString"), DataTable.Value("ProgramName"),DataTable.Value("YearOfStudy"), DataTable.Value("TotalDuration"), DataTable.Value("PartTimeOrFullTime"), DataTable.Value("NQFLevel"))
+ 
 Call SupportingDocumentsForBursary(path & DataTable.Value("UploadedFilePath"))
+ 
+Call ClickSubmit(bursaryType & " Submissions")
+ 
+Call ClickLogout()
 
-Call ClickSubmit()
+Call LineManagerApproval(bursaryType)
 
-ClickLogout
+Call HRApproval(bursaryType)
 
+ @@ script infofile_;_ZIP::ssf24.xml_;_
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'Line Manager accept test
-'DataTable.Import excelPath
-
-'DataTable.SetCurrentRow 1
-
-'LineManagerUsername
-'Login DataTable.Value("LineManagerUsername"), DataTable.Value("Password")
-
-'ClickActionsRequired
-
-'ClickBursaryTypeLink DataTable.Value("BursaryType")
-'ClickOnTheFirstSubmission
-
-'ClickApprove
-
-'SubmitRequest DataTable.Value("HRApprover")
 
 
 

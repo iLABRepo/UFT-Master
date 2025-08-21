@@ -1,49 +1,48 @@
 ﻿Dim browserObjGSWB
-
 Set browserObjGSWB = Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*")
 
-Sub ClickNext()
+Function ClickNext()
 	browserObjGSWB.WebButton("html id:=nextButton").Click
-End Sub
+End Function
 
-Sub ClickSave()
+Function ClickSave()
 	browserObjGSWB.WebButton("html id:=saveButton").Click
-End Sub
+End Function
 
-Sub ClickClose()
+Function ClickClose()
 	browserObjGSWB.WebButton("html id:=closeButton").Click
-End Sub
+End Function
 
-Sub ClickDiscardSubmission()
+Function ClickDiscardSubmission()
 	browserObjGSWB.WebButton("html id:=discardSubmissionButton").Click
-End Sub
+End Function
 
-Sub ClickBack()
+Function ClickBack()
 	browserObjGSWB.WebButton("html id:=prevButton").Click
-End  Sub
+End Function
 
-Sub ClickSubmit(submissionHeading)
+Function ClickSubmit(submissionHeading)
 	browserObjGSWB.WebButton("xpath:=//a[@id='submitButton']").Click
 	browserObjGSWB.WebButton("xpath:=//button[normalize-space()='Yes, submit']").Click
-	If browserObjGSWB.WebElement("xpath:=//h1[text()='" & submissionHeading & "']").Exist Then
+	If browserObjGSWB.WebElement("xpath:=//h1[text()='" & submissionHeading & "']").Exist(5) Then
 		Reporter.ReportEvent micPass, "Bursary submission", "Bursary " & submissionHeading & " submission was successful"
 	Else
 		Reporter.ReportEvent micFail, "Bursary submission", "Bursary " & submissionHeading & " submission was unsuccessful"
 		ExitTestIteration
 	End If
-End Sub
-Sub SubmitRequest(approverName)
-	browserObjGSWB.WebList("xpath:=//select[@id='usersNewAssignee']").Select approverName
-	browserObjGSWB.WebButton("xpath:=(//a[@id='processActionModalButton'])[6]").Click
-End Sub
+End Function
 
-Sub ClickApprove()
+Function ClickApprove()
 	browserObjGSWB.WebButton("name:=Approve").Click
-End Sub
+End Function
 
-Sub ClickHRApprove()
-	browserObjGSWB.WebButton("name:=HR Approve").Click
-End Sub
 
+Function SelectNextApprover(approverName)
+	browserObjGSWB.WebList("xpath:=//select[@id='usersNewAssignee']").Select approverName
+End Function
+
+Function ClickSubmitOnModal()
+	browserObjGSWB.WebButton("xpath:=(//a[@id='processActionModalButton'])[6]").Click
+End Function
 
 
