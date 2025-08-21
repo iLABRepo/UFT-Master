@@ -5,6 +5,7 @@ TestReleaseEnvironment = ""
 
 Public sTestReport
 Public sResults
+Public browserObj
 'Create a test Report
 sTestReport = "C:\automation\results\automationresults"&Year(Date)&Month(Date)&Day(Date)&"\"&getTimeStamp()&".csv"
 sResults = "C:\automation\results\automationresults"&Year(Date)&Month(Date)&Day(Date)&""
@@ -12,3 +13,6 @@ sResults = "C:\automation\results\automationresults"&Year(Date)&Month(Date)&Day(
 'Test Data
 
 strTestData = "C:\automation\data\TestData.xls"
+
+
+

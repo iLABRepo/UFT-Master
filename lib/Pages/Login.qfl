@@ -1,11 +1,10 @@
-Dim browserObj
-Set browserObj = Browser("title:=.* Wits Apps.*").Page("title:=.* Wits Apps.*")
+﻿Set browserObj = Browser("title:=.* Wits Apps.*").Page("title:=.* Wits Apps.*")
 
 Function Login(username, password)
 	browserObj.WebEdit("name:=username").Set username
 	browserObj.WebEdit("name:=password").SetSecure password
 	browserObj.WebButton("innertext:=Sign in").Click
-	If  Browser("title:=.*Wits Apps.*").Page("title:=.*Wits Apps.*").WebElement("xpath:=//LI[@id='home-menu']/A").Exist Then
+	If  browserObj.WebElement("xpath:=//LI[@id='home-menu']/A").Exist Then
 		Reporter.ReportEvent micPass, "Login", "Login successful"
 	Else
 		Reporter.ReportEvent micFail, "Login", "Login unsuccessful"

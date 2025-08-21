@@ -4,10 +4,11 @@ bursaryType = "Bursary Type A - Staff studying at Wits"
 Set fso =  CreateObject("Scripting.FileSystemObject")
 scriptsPath = fso.GetParentFolderName(Environment("TestDir"))
 path = fso.GetParentFolderName(scriptsPath)
- 
-excelPath = path & "\data\Wits Staff Bursary(1).xlsx"
+
+excelPath = path & "\data\Wits Staff Bursary A.xlsx"
  
 DataTable.Import excelPath
+Set fso = Nothing
 
 Call LaunchBrowser(DataTable.Value("browser"), DataTable.Value("url"))
  
