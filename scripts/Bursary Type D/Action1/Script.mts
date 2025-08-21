@@ -10,6 +10,8 @@ excelPath = path & "\data\Wits Staff Bursary(1).xlsx"
  
 DataTable.Import excelPath
 
+DataTable.SetCurrentRow 2
+
 Call LaunchBrowser(DataTable.Value("browser"), DataTable.Value("url"))
  
 Call Login(DataTable.Value("Username"), DataTable.Value("Password"))

@@ -32,15 +32,14 @@ Global
 		CADAED58-CB55-4044-BACB-D9B1D99028FD.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(Function Libraries) = postProject
-		Login = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\Login.qfl
-		Navigation = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\Navigation.qfl
-		ActionsRequired = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\ActionsRequired.qfl
-		Generic Form Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\Generic Form Functions.qfl
-		Home = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\Home.qfl
-		Wits Staff Bursary = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Pages\Wits Staff Bursary.qfl
-		Utility Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Utility Functions.qfl
-		Data Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Data Functions.qfl
-		Constants = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Constants.qfl
-		Keywords Functions = C:\Users\Thoriso Molebatsi\OneDrive - iLAB, LLC\Documents\Functional Testing\UFT-Master\lib\Keywords Functions.qfl
+		Login = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master\lib\Pages\Login.qfl
+		ActionsRequired = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master\lib\Pages\ActionsRequired.qfl
+		Generic Form Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master\lib\Pages\Generic Form Functions.qfl
+		Home = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master\lib\Pages\Home.qfl
+		Wits Staff Bursary = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master\lib\Pages\Wits Staff Bursary.qfl
+		Utility Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master\lib\Utility Functions.qfl
+		Data Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master\lib\Data Functions.qfl
+		Constants = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master\lib\Constants.qfl
+		Keywords Functions = C:\Users\Tumelo Maphalla\3D Objects\UFT-Master\lib\Keywords Functions.qfl
 	EndGlobalSection
 EndGlobal

@@ -5,7 +5,7 @@ Function Login(username, password)
 	browserObj.WebEdit("name:=username").Set username
 	browserObj.WebEdit("name:=password").SetSecure password
 	browserObj.WebButton("innertext:=Sign in").Click
-	If  Browser("title:=.*Wits Apps.*").WebLink("xpath:=//LI[@id='home-menu']/A").Exist Then
+	If  Browser("title:=.*Wits Apps.*").WebElement("xpath:=//LI[@id='home-menu']/A").Exist Then
 		Reporter.ReportEvent micPass, "Login", "Login was successful"
 	Else
 		Reporter.ReportEvent micFail, "Login", "Login was unsuccessful"
