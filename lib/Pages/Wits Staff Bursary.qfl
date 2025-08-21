@@ -109,7 +109,7 @@ Private Sub partialEnrollmentDetails(yearOfStudy, totalDuration, partTimeOrFullT
 	browserWitsStaffBursary.WebList("xpath:=//SELECT[@name='partTimeFullTime']").Select partTimeOrFullTime
 End Sub
 
-Function SupportingDocumentsForBursary(path, Optional UploadedFilePathDocx, Optional UploadedFilePathTxt)
+Function SupportingDocumentsForBursary(path, UploadedFilePathDocx, UploadedFilePathTxt)
 	If browserWitsStaffBursary.WebElement("xpath:=//h2[@id='section-title']").Exist Then
 	        Reporter.ReportEvent micPass, "SupportingDocumentsForBursary", "Supporting Documents page displayed"
 	        browserWitsStaffBursary.WebFile("xpath:=(//input[@name='file'])[4]").Set path
