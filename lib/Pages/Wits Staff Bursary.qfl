@@ -21,20 +21,47 @@ Function BursaryTypeLink(name)
 	End If
 End Function
 
-Function HighestQualificationAndHistoricalRecord(qualificationString, previousQualificaionName)
-	If browserWitsStaffBursary.WebElement("xpath:=//h2[@id='section-title']").Exist Then
-		Reporter.ReportEvent micPass, "HighestQualificationAndHistoricalRecord", "Historical Record: Dependant's previous study information page displayed"
-		browserWitsStaffBursary.WebList("html id:=otherhighquali").Select qualificationString
-		browserWitsStaffBursary.WebButton("name:=Add Previous Qualification").Click
-		browserWitsStaffBursary.WebEdit("html id:=column1").Set previousQualificaionName
-		browserWitsStaffBursary.WebButton("name:=Save", "index:=4").Click
-		ClickNext
-	Else
-		Reporter.ReportEvent micFail, "HighestQualificationAndHistoricalRecord", "Historical Record: Dependant's previous study information page could not display"
-		ExitIteration
-	End If
-End Function
+Function HighestQualificationAndHistoricalRecord(qualificationString, previousQualificaionName, educationInstitution, witsBursaryReceivedBefore, yearOfQualification, yearOfRegistration, Full_PartTime, BursaryType)
+If browserWitsStaffBursary.WebElement("xpath:=//h2[@id='section-title']").Exist Then
 
+        Reporter.ReportEvent micPass, "Highest Qualification and Historical Record page", "Highest Qualification and Historical Records screen is displayed"
+
+        browserWitsStaffBursary.WebList("html id:=otherhighquali").Select qualificationString
+
+        browserWitsStaffBursary.WebButton("name:=Add Previous Qualification").Click
+
+        browserWitsStaffBursary.WebEdit("html id:=column1").Set previousQualificaionName
+
+        browserWitsStaffBursary.WebList("xpath:=//select[@id='column2']").Select qualificationString
+
+        browserWitsStaffBursary.WebEdit("xpath:=//input[@id='column3']").Set educationInstitution
+
+        browserWitsStaffBursary.WebList("xpath:=//select[@id='column4']").Select witsBursaryReceivedBefore
+
+        browserWitsStaffBursary.WebList("xpath:=//select[@id='column5']").Select yearOfQualification
+
+        browserWitsStaffBursary.WebButton("xpath:=(//a[text()='Save'])[5]").Click
+If StrComp(BursaryType, "Bursary Type A - Staff studying at Wits", vbTextCompare) = 0 Then
+
+            browserWitsStaffBursary.WebButton("name:=Add Previous Registration").Click
+
+            browserWitsStaffBursary.WebList("xpath:=//select[@id='column1']").Select yearOfRegistration
+
+            browserWitsStaffBursary.WebList("xpath:=//select[@id='column2']").Select Full_PartTime
+
+            browserWitsStaffBursary.WebList("xpath:=//select[@id='column3']").Select witsBursaryReceivedBefore
+
+            browserWitsStaffBursary.WebButton("xpath:=(//a[text()='Save'])[5]").Click
+End If
+Call ClickNext()
+Else
+
+        Reporter.ReportEvent micFail, "Highest Qualification and Historical Record page", "Highest Qualification and Historical Records screen is not displayed"
+
+           ExitIteration
+End If
+End Function
+ 
 
 Function AgreeToTermsAndConditions()
 	If browserWitsStaffBursary.WebElement("xpath:=//h2[@id='section-title']").Exist Then
@@ -118,13 +145,13 @@ Function DependantInformation(witsStudentNumber, title, natureOfRelationship, co
 	End If
 End Function
 
-Function LineManagerApproval()
-'Line Manager accept test
+Function LineManagerApproval(bursaryType)
+'Line Manager accepts the application
 	Call Login(DataTable.Value("LineManagerUsername"), DataTable.Value("Password"))
 	
 	Call ClickActionsRequired()
 	
-	Call BursaryTypeLinkOnActionsRequred(DataTable.Value("BursaryType"))
+	Call BursaryTypeLinkOnActionsRequred(bursaryType)
 	Call ClickOnTheFirstSubmission()
 	
 	Call ClickApprove()
@@ -134,15 +161,16 @@ Function LineManagerApproval()
 	Call ClickLogout()
 End Function
 
-Function HRApproval()
+Function HRApproval( bursaryType)
+'HR accepts a bursary application
 	Call Login(DataTable.Value("HRUsername"), DataTable.Value("Password"))
 	
 	Call ClickActionsRequired()
 	
-	Call BursaryTypeLinkOnActionsRequred(DataTable.Value("BursaryType"))
+	Call BursaryTypeLinkOnActionsRequred(bursaryType)
 	Call ClickOnTheFirstSubmission()
 	
-	Call HRSubmitBursaryApproval(100, "Yes", "Yes", "Exception")
+	Call HRSubmitBursaryApproval(DataTable.Value("BursaryPercentage"), DataTable.Value("OverrideCalculatedPercentage"), DataTable.Value("IsDocumentsProvided"), DataTable.Value("ReasonForOverride"), bursaryType)
 	
 	Call ClickLogout()
 End Function
