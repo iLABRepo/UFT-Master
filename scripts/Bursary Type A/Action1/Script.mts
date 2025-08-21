@@ -23,7 +23,7 @@ Call  HighestQualificationAndHistoricalRecord(DataTable.Value("QualificationStri
  
 Call EnrollmentDetails(DataTable.Value("SearchString"), DataTable.Value("ProgramName"),DataTable.Value("YearOfStudy"), DataTable.Value("TotalDuration"), DataTable.Value("PartTimeOrFullTime"), DataTable.Value("NQFLevel"))
  
-Call SupportingDocumentsForBursary(path & DataTable.Value("UploadedFilePath"))
+Call SupportingDocumentsForBursary(path & DataTable.Value("UploadedFilePath"),path & DataTable.Value("UploadedFilePathTxt"), path & DataTable.Value("UploadedFilePathDocx"))
  
 Call ClickSubmit(bursaryType & " Submissions")
  
